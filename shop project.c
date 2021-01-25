@@ -148,7 +148,7 @@ void signin()
 void admin()
 {
     char name[100],pass[100];
-        printf("\n\n\t\t\t\t===================\n");
+    printf("\n\n\t\t\t\t===================\n");
     printf("\t\t\t\t||  Admin Panel  ||\n");
     printf("\t\t\t\t===================\n");
     printf("\n\t\t\t\tUser Name : ");
@@ -265,21 +265,39 @@ void clothing()
 void women()
 {
     int n;
-    printf("\n\n\t\t\t\t=============================\n");
-    printf("\t\t\t\t| Welcome to the Women site |");
-    printf("\n\t\t\t\t=============================\n");
-    printf("\n\t\t\t\t1. Saree--1200 Taka\n");
-    printf("\n\t\t\t\t2. Shirt--500 Taka\n");
-    printf("\n\t\t\t\t3. Pant--600 Taka\n");
-    printf("\n\t\t\t\t4. 3-Pic--1800 Taka\n");
-    printf("\n\t\t\t\tEnter your choice: ");
+    printf("\n\n\n\t\t\t\t\t =================\n");
+    printf("\t\t\t\t\t | Women Section |");
+    printf("\n\t\t\t\t\t =================\n\n");
+    printf("\n\t\t\t\t 1. Saree--1200 Taka\n");
+    printf("\n\t\t\t\t 2. Shirt--500 Taka\n");
+    printf("\n\t\t\t\t 3. Pant--600 Taka\n");
+    printf("\n\t\t\t\t 4. 3-Pic--1800 Taka\n");
+    printf("\n\t\t\t\t 5. <= Back\n");
+    printf("\n\n\t\t\t\t__________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
     scanf("%d", &n);
     switch(n)
     {
     case 1:
         printf("Your order is : Saree || Price: 1200 Taka");
         break;
+
     case 2:
+        printf("Your order is : Shirt || Price: 500 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Pant || Price: 600 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : 3-Pic || Price: 1800 Taka");
+        break;
+
+    case 5:
+        clothing();
+        break;
+
     default:
         printf("Error!");
 
@@ -288,43 +306,169 @@ void women()
 
 void men()
 {
-    printf("\n\t\t\t\t=========\n");
-    printf("\n\n\t\t\t\t Welcome to the Men site ");
-    printf("\n\t\t\t\t1. Shirt--900 Taka\n");
-    printf("\n\t\t\t\t2. Pant--500 Taka\n");
-    printf("\n\t\t\t\t3. T-Shirt--300 Taka\n");
-    printf("\n\t\t\t\t4. watch--600 Taka\n");
+    int n;
+    printf("\n\n\n\t\t\t\t\t ===============\n");
+    printf("\t\t\t\t\t | Men Section |");
+    printf("\n\t\t\t\t\t ===============\n\n");
+    printf("\n\t\t\t\t 1. Shirt--900 Taka\n");
+    printf("\n\t\t\t\t 2. Pant--500 Taka\n");
+    printf("\n\t\t\t\t 3. T-Shirt--300 Taka\n");
+    printf("\n\t\t\t\t 4. Watch--600 Taka\n");
+    printf("\n\t\t\t\t 5. <= Back\n");
+    printf("\n\n\t\t\t\t__________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Shirt || Price: 900 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Pant || Price: 500 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : T-Shirt || Price: 300 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Watch || Price: 600 Taka");
+        break;
+
+    case 5:
+        clothing();
+        break;
+
+    default:
+        printf("Error!");
+
+    }
 }
+
 
 void children()
 {
-    printf("\n\t\t\t\t=========\n");
-    printf("\n\n\t\t\t\t Welcome to the Children site ");
-    printf("\n\t\t\t\t1. Shirt--500 Taka\n");
-    printf("\n\t\t\t\t2. Pant--500 Taka\n");
-    printf("\n\t\t\t\t3. Toy--1200 Taka\n");
-    printf("\n\t\t\t\t4. watch--300 Taka\n");
+    int n;
+    printf("\n\n\n\t\t\t\t\t ====================\n");
+    printf("\t\t\t\t\t | Children Section |");
+    printf("\n\t\t\t\t\t ====================\n\n");
+    printf("\n\t\t\t\t 1. Shirt--500 Taka\n");
+    printf("\n\t\t\t\t 2. Pant--500 Taka\n");
+    printf("\n\t\t\t\t 3. Toy--1200 Taka\n");
+    printf("\n\t\t\t\t 4. Watch--300 Taka\n");
+    printf("\n\t\t\t\t 5. <= Back\n");
+    printf("\n\n\t\t\t\t__________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Shirt || Price: 500 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Pant || Price: 500 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Toy || Price: 1200 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Watch || Price: 300 Taka");
+        break;
+
+    case 5:
+        clothing();
+        break;
+
+
+    default:
+        printf("Error!");
+    }
 
 }
 
 void footwear()
 {
-    printf("\n\t\t\t\t=========\n");
-    printf("\n\n\t\t\t\t Welcome to the Footwear site ");
-    printf("\n\t\t\t\t1. Shoes--1500 Taka\n");
-    printf("\n\t\t\t\t2. Socks--200 Taka\n");
-    printf("\n\t\t\t\t3. Belt--300 Taka\n");
-    printf("\n\t\t\t\t4. Wallet--1200 Taka\n");
+    int n;
+    printf("\n\n\n\t\t\t\t\t ====================\n");
+    printf("\t\t\t\t\t | Footwear Section |");
+    printf("\n\t\t\t\t\t ====================\n\n");
+    printf("\n\t\t\t\t 1. Shoes--1500 Taka\n");
+    printf("\n\t\t\t\t 2. Socks--200 Taka\n");
+    printf("\n\t\t\t\t 3. Belt--300 Taka\n");
+    printf("\n\t\t\t\t 4. Wallet--1200 Taka\n");
+    printf("\n\t\t\t\t 5. <= Back\n");
+    printf("\n\n\t\t\t\t__________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Shoes || Price: 1500 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Socks || Price: 200 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Belt || Price: 300 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Wallet || Price: 1200 Taka");
+        break;
+    case 5:
+        clothing();
+        break;
+
+    default:
+        printf("Error!");
+    }
+
 }
 
 void jwelries()
 {
-    printf("\n\t\t\t\t=========\n");
-    printf("\n\n\t\t\t\t Welcome to the Jewelires site ");
-    printf("\n\t\t\t\t1. Neekless--2,50,000 Taka\n");
-    printf("\n\t\t\t\t2. Braselet--15000 Taka\n");
-    printf("\n\t\t\t\t3. Chain-- 5000 Taka\n");
-    printf("\n\t\t\t\t4. Diamond-Ring 20,000 Taka\n");
+    int n;
+    printf("\n\n\n\t\t\t\t\t ===================\n");
+    printf("\t\t\t\t\t | Jewelry Section |");
+    printf("\n\t\t\t\t\t ===================\n\n");
+    printf("\n\t\t\t\t 1. Neekless--2,50,000 Taka\n");
+    printf("\n\t\t\t\t 2. Braselet--15000 Taka\n");
+    printf("\n\t\t\t\t 3. Chain-- 5000 Taka\n");
+    printf("\n\t\t\t\t 4. Diamond-Ring 20,000 Taka\n");
+    printf("\n\t\t\t\t 5. <= Back\n");
+    printf("\n\n\t\t\t\t__________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Neekless || Price: 2,50,000 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Braselet || Price: 15000 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Chain || Price: 5000 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Diamond-Ring || Price: 20,000 Taka");
+        break;
+    case 5:
+        clothing();
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void electronics()
@@ -334,10 +478,10 @@ void electronics()
     printf("\n\n\t\t\t\t\t    ==============\n");
     printf("\t\t\t\t\t    | Electroics |");
     printf("\n\t\t\t\t\t    ==============\n");
-    printf("\n\t\t\t\t1. Home Appliances\n");
-    printf("\n\t\t\t\t2. Computer Accessories\n");
-    printf("\n\t\t\t\t3. Digital Goods");
-    printf("\n\t\t\t\t4. <= Back");
+    printf("\n\t\t\t\t 1. Home Appliances\n");
+    printf("\n\t\t\t\t 2. Computer Accessories\n");
+    printf("\n\t\t\t\t 3. Digital Goods");
+    printf("\n\t\t\t\t 4. <= Back");
     printf("\n\n\t\t\t\t__________________________________________\n\n");
     printf("\t\t\t\tEnter your choice: ");
     scanf("%d",&e.n);
@@ -365,14 +509,43 @@ void electronics()
 }
 void home_app()
 {
+    int n;
     printf("\n\t\t\t\t1. Fan -- 3500 Taka\n");
     printf("\n\t\t\t\t2. Light -- 250 Taka\n");
-    printf("\n\t\t\t\t3. Calling Bell --200 Taka\n");
+    printf("\n\t\t\t\t3. Calling Bell --250 Taka\n");
     printf("\n\t\t\t\t4. Switch --250 Taka\n");
     printf("\n\t\t\t\t5. Electric Door --5000 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Fan || Price: 3500 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Light || Price: 250 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Calling Bell || Price: 250 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Switch || Price: 250 Taka");
+        break;
+
+    case 5:
+        printf("Your order is : Electric Door || Price: 5000 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 void computer()
 {
+
+    int n;
     printf("\n\t\t\t\t1. Ram-- 3500 Taka\n");
     printf("\n\t\t\t\t2. Ram -- 250 Taka\n");
     printf("\n\t\t\t\t3. Ram -- 200 Taka\n");
@@ -383,9 +556,56 @@ void computer()
     printf("\n\t\t\t\t3. Processor-Ill --200 Taka\n");
     printf("\n\t\t\t\t4. Processor-IV --250 Taka\n");
     printf("\n\t\t\t\t5. Processor-V --5000 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Ram || Price: 3500 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Ram || Price: 250 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Ram || Price: 250 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : SSD || Price: 250 Taka");
+        break;
+
+    case 5:
+        printf("Your order is : SSD || Price: 5000 Taka");
+        break;
+
+    case 6:
+        printf("Your order is : Processor-I || Price: 3500 Taka");
+        break;
+
+    case 7:
+        printf("Your order is : Processor-II || Price: 250 Taka");
+        break;
+
+    case 8:
+        printf("Your order is : Processor-III || Price: 250 Taka");
+        break;
+
+    case 9:
+        printf("Your order is : Processor-IV || Price: 250 Taka");
+        break;
+
+    case 10:
+        printf("Your order is : Processor-V || Price: 5000 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 void digital_goods()
 {
+    int n;
     printf("\n\t\t\t\t=========\n");
     printf("\n\n\t\t\t\t Welcome to the Digital Goods site ");
     printf("\n\t\t\t\t1. Electric Door--2000 Taka\n");
@@ -393,6 +613,32 @@ void digital_goods()
     printf("\n\t\t\t\t3. Refrigrator--35,000 Taka\n");
     printf("\n\t\t\t\t4. Blander Machine -- 35,00Taka\n");
     printf("\n\t\t\t\t5. Fridge -- 95,000 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Electric Door || Price: 2000 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Washing Machine || Price: 45,000 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Refrigrator || Price: 35,00 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Blander Machine || Price: 35,000 Taka");
+        break;
+
+    case 5:
+        printf("Your order is : Fridge || Price: 95,000 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////////////Health & care
 void healthcare()
@@ -443,6 +689,7 @@ void healthcare()
 }
 void medical_acc()
 {
+    int n;
     printf("\n\t\t\t\t=========\n");
     printf("\n\n\t\t\t\t Welcome to the Medicine site ");
     printf("\n\t\t\t\t1. Bed--250 Taka\n");
@@ -450,10 +697,42 @@ void medical_acc()
     printf("\n\t\t\t\t3. Injection-- 300 Taka\n");
     printf("\n\t\t\t\t4. Fanel-- 35,00Taka\n");
     printf("\n\t\t\t\t5. Acid -- 95,000 Taka\n");
-    printf("\n\t\t\t\t6. wheel-chair -- 95,000 Taka\n");
+    printf("\n\t\t\t\t6. Wheel-chair -- 95,000 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Bed || Price: 250 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Chair || Price: 100 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Injection || Price: 300 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Fanel || Price: 35,00 Taka");
+        break;
+
+    case 5:
+        printf("Your order is : Acid || Price: 95,000 Taka");
+        break;
+
+    case 6:
+        printf("Your order is : Wheel-chair || Price: 95,000 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
+
 }
 void hygenic()
 {
+    int n;
     printf("\n\t\t\t\t=========\n");
     printf("\n\n\t\t\t\t Welcome to the Hygenic Goods site ");
     printf("\n\t\t\t\t1. Osmotics Cosmeceuticals--2500 Taka\n");
@@ -461,17 +740,63 @@ void hygenic()
     printf("\n\t\t\t\t3. Bulk Apothecary-- 300 Taka\n");
     printf("\n\t\t\t\t4. The Dairy Fairy -- 5,00Taka\n");
     printf("\n\t\t\t\t5. Oyin Handmade -- 5,000 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Osmotics Cosmeceuticals || Price: 2500 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : BPI Sports || Price: 100 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Bulk Apothecary || Price: 300 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : The Dairy Fairy || Price: 5,00 Taka");
+        break;
+
+    case 5:
+        printf("Your order is : Oyin Handmade || Price: 5,000 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 void personal()
 {
+    int n;
     printf("\n\t\t\t\t=========\n");
     printf("\n\n\t\t\t\t Welcome to the Personal Goods site ");
     printf("\n\t\t\t\t1. Fast Aid--250 Taka\n");
     printf("\n\t\t\t\t2. Bandage-- 100 Taka\n");
     printf("\n\t\t\t\t3. Kneif-- 300 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Fast Aid || Price: 250 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Bandage || Price: 100 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Kneif || Price: 300 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 void dental()
 {
+    int n;
     printf("\n\t\t\t\t=========\n");
     printf("\n\n\t\t\t\t Welcome to the Dental site ");
     printf("\n\t\t\t\t1. Teeth cleaner--250 Taka\n");
@@ -479,9 +804,36 @@ void dental()
     printf("\n\t\t\t\t3. Fake Teeth--500  Taka\n");
     printf("\n\t\t\t\t4. Brush--20 Taka\n");
     printf("\n\t\t\t\t5. Tooth-pest-- 250 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Teeth cleaner || Price: 250 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Mouth Wash || Price: 250 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Fake Teeth || Price: 500 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Brush || Price: 20 Taka");
+        break;
+
+    case 5:
+        printf("Your order is : Tooth-pest || Price: 250 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 void medicines()
 {
+    int n;
     printf("\n\t\t\t\t=========\n");
     printf("\n\n\t\t\t\t Welcome to the madicine site ");
     printf("\n\t\t\t\t1. Ace--10 Taka\n");
@@ -492,6 +844,44 @@ void medicines()
     printf("\n\t\t\t\t6. Napa -- 10 Taka\n");
     printf("\n\t\t\t\t7. Sallyn --5  Taka\n");
     printf("\n\t\t\t\t8.  Tofen --23 Taka\n");
+    scanf("%d",&n);
+    switch(n)
+    {
+    case 1:
+        printf("Your order is : Ace || Price: 10 Taka");
+        break;
+
+    case 2:
+        printf("Your order is : Deflux || Price: 50 Taka");
+        break;
+
+    case 3:
+        printf("Your order is : Sinaron Plus || Price: 20 Taka");
+        break;
+
+    case 4:
+        printf("Your order is : Isoral Mums || Price: 100 Taka");
+        break;
+
+    case 5:
+        printf("Your order is : Viscosid || Price: 150 Taka");
+        break;
+
+    case 6:
+        printf("Your order is : Napa || Price: 10 Taka");
+        break;
+
+    case 7:
+        printf("Your order is : Sallyn || Price: 5 Taka");
+        break;
+
+    case 8:
+        printf("Your order is : Tofen || Price: 23 Taka");
+        break;
+
+    default:
+        printf("Error!");
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void furnitures()
