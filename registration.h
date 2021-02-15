@@ -1,12 +1,13 @@
 int registration()
 {
+    system("cls");
     char first[50], middle[50], last[50], email[100], usrname[100], pass[100], address[100], pass2[100];
     int mobile;
     FILE *fptr;
     fptr = fopen("regestration.txt","w");
-    printf("\n\n\t\t\t\t\t====================\n");
-    printf("\t\t\t\t\t||  Registration  ||\n");
-    printf("\t\t\t\t\t====================\n\n");
+    printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t====================\n");
+    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t||  Registration  ||\n");
+    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t====================\n\n"ANSI_COLOR_RESET);
     printf("\t\t\t\tEnter your full name [First Middle Last]\n");
     printf("\t\t\t\t----------------------------------------\n");
     printf("\t\t\t\t=> ");

@@ -1,10 +1,12 @@
+
 void clothing()
 {
+    system("cls");
     int c;
-    printf("\n\n\t\t\t\t==========================================\n");
-    printf("\n\n\t\t\t\t\t    ====================\n");
-    printf("\t\t\t\t\t    | Clothing Section |");
-    printf("\n\t\t\t\t\t    ====================\n");
+
+    printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t    ====================\n");
+    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t    | Clothing Section |");
+    printf(ANSI_COLOR_YELLOW"\n\t\t\t\t\t    ====================\n"ANSI_COLOR_RESET);
     printf("\n\t\t\t\t1. Women\n");
     printf("\n\t\t\t\t2. Men\n");
     printf("\n\t\t\t\t3. Children\n");
@@ -47,34 +49,43 @@ void clothing()
 }
 void women()
 {
+    system("cls");
     int n;
+    char a[] = "Sharee";
+    char b[] = "Shirt";
+    char c[] = "Denim";
+    char d[] = "Three Piece";
+    int p = 1200, q = 500, r = 600, s = 1800;
+    int x;
     printf("\n\n\n\t\t\t\t\t =================\n");
     printf("\t\t\t\t\t | Women Section |");
     printf("\n\t\t\t\t\t =================\n\n");
-    printf("\n\t\t\t\t 1. Saree--1200 Taka\n");
-    printf("\n\t\t\t\t 2. Shirt--500 Taka\n");
-    printf("\n\t\t\t\t 3. Pant--600 Taka\n");
-    printf("\n\t\t\t\t 4. 3-Pic--1800 Taka\n");
+    printf("\n\t\t\t\t 1. %s ----- %d Taka\n", a, p);
+    printf("\n\t\t\t\t 2. %s ----- %d Taka\n", b, q);
+    printf("\n\t\t\t\t 3. %s ----- %d Taka\n", c, r);
+    printf("\n\t\t\t\t 4. %s ----- %d Taka\n", d, s);
     printf("\n\t\t\t\t 5. <= Back\n");
     printf("\n\n\t\t\t\t__________________________________________\n\n");
     printf("\t\t\t\tEnter your choice: ");
     scanf("%d", &n);
+    printf("\t\t\t\tEnter quantity: ");
+    scanf("%d", &x);
     switch(n)
     {
     case 1:
-        printf("Your order is : Saree || Price: 1200 Taka");
+        invoice(a, p*x, x);
         break;
 
     case 2:
-        printf("Your order is : Shirt || Price: 500 Taka");
+        invoice(b, q*x, x);
         break;
 
     case 3:
-        printf("Your order is : Pant || Price: 600 Taka");
+        invoice(c, r*x, x);
         break;
 
     case 4:
-        printf("Your order is : 3-Pic || Price: 1800 Taka");
+        invoice(d, s*x, x);
         break;
 
     case 5:
@@ -89,6 +100,7 @@ void women()
 
 void men()
 {
+    system("cls");
     int n;
     printf("\n\n\n\t\t\t\t\t ===============\n");
     printf("\t\t\t\t\t | Men Section |");
@@ -132,6 +144,7 @@ void men()
 
 void children()
 {
+    system("cls");
     int n;
     printf("\n\n\n\t\t\t\t\t ====================\n");
     printf("\t\t\t\t\t | Children Section |");
@@ -175,6 +188,7 @@ void children()
 
 void footwear()
 {
+    system("cls");
     int n;
     printf("\n\n\n\t\t\t\t\t ====================\n");
     printf("\t\t\t\t\t | Footwear Section |");
@@ -216,6 +230,7 @@ void footwear()
 
 void jwelries()
 {
+    system("cls");
     int n;
     printf("\n\n\n\t\t\t\t\t ===================\n");
     printf("\t\t\t\t\t | Jewelry Section |");

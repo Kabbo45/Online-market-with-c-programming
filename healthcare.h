@@ -1,10 +1,10 @@
 void healthcare()
 {
+    system("cls");
     int h;
-    printf("\n\n\t\t\t\t==========================================\n");
-    printf("\n\n\t\t\t\t\t    ===============\n");
-    printf("\t\t\t\t\t    | Health Care |");
-    printf("\n\t\t\t\t\t    ===============\n");
+    printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t    ===============\n");
+    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t    | Health Care |");
+    printf(ANSI_COLOR_YELLOW"\n\t\t\t\t\t    ===============\n"ANSI_COLOR_RESET);
     printf("\n\t\t\t\t1. Medical Accessories\n");
     printf("\n\t\t\t\t2. Hygienic Products\n");
     printf("\n\t\t\t\t3. Personal Care\n");

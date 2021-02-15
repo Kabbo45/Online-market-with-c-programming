@@ -1,10 +1,11 @@
+
 void shop()
 {
+    system("cls");
     int s;
-    printf("\n\n\t\t\t\t========================================\n");
-    printf("\n\n\t\t\t\t\t    ================\n");
-    printf("\t\t\t\t\t    | Our Services |");
-    printf("\n\t\t\t\t\t    ================\n");
+    printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t    ================\n");
+    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t    | Our Services |");
+    printf(ANSI_COLOR_YELLOW"\n\t\t\t\t\t    ================\n"ANSI_COLOR_RESET);
     printf("\n\n\t\t\t\t1. Clothing");
     printf("\n\n\t\t\t\t2. Electronics");
     printf("\n\n\t\t\t\t3. Health & Care");

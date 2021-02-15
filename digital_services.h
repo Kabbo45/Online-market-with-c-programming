@@ -1,10 +1,10 @@
 void digital_service()
 {
+    system("cls");
     int d;
-    printf("\n\n\t\t\t\t==========================================\n");
-    printf("\n\n\t\t\t\t\t    ===================\n");
-    printf("\t\t\t\t\t    | Digital Service |");
-    printf("\n\t\t\t\t\t    ===================\n");
+    printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t    ===================\n");
+    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t    | Digital Service |");
+    printf(ANSI_COLOR_YELLOW"\n\t\t\t\t\t    ===================\n"ANSI_COLOR_RESET);
     printf("\n\t\t\t\t1. Gift Cards\n");
     printf("\n\t\t\t\t2. Account Subscription\n");
     printf("\n\t\t\t\t3. Game Top-Up\n");
