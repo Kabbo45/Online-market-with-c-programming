@@ -3,8 +3,8 @@ void electronics()
     system("cls");
     int e;
     printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t    ==============\n");
-    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t    | Electroics |");
-    printf(ANSI_COLOR_YELLOW"\n\t\t\t\t\t    ==============\n"ANSI_COLOR_RESET);
+    printf("\t\t\t\t\t    | Electroics |");
+    printf("\n\t\t\t\t\t    ==============\n"ANSI_COLOR_RESET);
     printf("\n\t\t\t\t 1. Home Appliances\n");
     printf("\n\t\t\t\t 2. Computer Accessories\n");
     printf("\n\t\t\t\t 3. Digital Goods");

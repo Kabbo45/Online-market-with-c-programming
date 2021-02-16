@@ -1,25 +1,27 @@
 int registration()
 {
     system("cls");
-    char first[50], middle[50], last[50], email[100], usrname[100], pass[100], address[100], pass2[100];
+    char name[200], email[100], usrname[100], pass[100], address[200], pass2[100];
     int mobile;
     FILE *fptr;
     fptr = fopen("regestration.txt","w");
     printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t====================\n");
-    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t||  Registration  ||\n");
-    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t====================\n\n"ANSI_COLOR_RESET);
-    printf("\t\t\t\tEnter your full name [First Middle Last]\n");
-    printf("\t\t\t\t----------------------------------------\n");
+    printf("\t\t\t\t\t||  Registration  ||\n");
+    printf("\t\t\t\t\t====================\n\n"ANSI_COLOR_RESET);
+    fflush(stdin);
+    printf("\t\t\t\tEnter your full name\n");
+    printf("\t\t\t\t--------------------\n");
     printf("\t\t\t\t=> ");
-    scanf("%s %s %s", &first, &middle, &last);
+    scanf("%[^\n]s", name);
     printf("\n\t\t\t\tEnter your mobile number\n");
     printf("\t\t\t\t------------------------\n");
     printf("\t\t\t\t=> ");
     scanf("%d", &mobile);
-    printf("\n\t\t\t\tEnter your district\n");
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter your address\n");
     printf("\t\t\t\t------------------\n");
     printf("\t\t\t\t=> ");
-    scanf("%s", &address);
+    scanf("%[^\n]s", address);
     printf("\n\t\t\t\tEnter your e-mail\n");
     printf("\t\t\t\t-----------------\n");
     printf("\t\t\t\t=> ");
@@ -39,7 +41,7 @@ int registration()
     int result = strcmp(pass, pass2);
     if(result == 0)
     {
-        fprintf(fptr,"Registration Details \n-------------------- \nFull Name: %s %s %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", first, middle, last, mobile, address, email, usrname, pass);
+        fprintf(fptr,"Registration Details \n-------------------- \nFull Name: %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", name, mobile, address, email, usrname, pass);
         fclose(fptr);
 
         FILE *username;
@@ -70,7 +72,7 @@ int registration()
         }
         while (pass == pass2);
 
-        fprintf(fptr,"Registration Details \n-------------------- \nFull Name: %s %s %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", first, middle, last, mobile, address, email, usrname, pass);
+        fprintf(fptr,"Registration Details \n-------------------- \nFull Name: %s %s %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", name, mobile, address, email, usrname, pass);
         fclose(fptr);
 
         FILE *username;

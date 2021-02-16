@@ -3,8 +3,8 @@ void furnitures()
     system("cls");
     int f;
     printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t    ==============\n");
-    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t    | Furnitures |");
-    printf(ANSI_COLOR_YELLOW"\n\t\t\t\t\t    ==============\n"ANSI_COLOR_RESET);
+    printf("\t\t\t\t\t    | Furnitures |");
+    printf("\n\t\t\t\t\t    ==============\n"ANSI_COLOR_RESET);
     printf("\n\t\t\t\t1. Living Room\n");
     printf("\n\t\t\t\t2. Drawing Room\n");
     printf("\n\t\t\t\t3. Kitchen\n");

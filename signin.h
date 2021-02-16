@@ -4,8 +4,8 @@ void signin()
     char user[100], password[100], usr[100], passc[100];
     int n;
     printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t===============\n");
-    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t||  Sign In  ||\n");
-    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t===============\n" ANSI_COLOR_RESET);
+    printf("\t\t\t\t\t||  Sign In  ||\n");
+    printf("\t\t\t\t\t===============\n" ANSI_COLOR_RESET);
     printf("\n\t\t\t\tEnter your username\n");
     printf("\t\t\t\t-------------------\n");
     printf("\t\t\t\t=> ");

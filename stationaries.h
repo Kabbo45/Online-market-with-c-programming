@@ -3,8 +3,8 @@ void stationaries()
     system("cls");
     int s;
     printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t    ================\n");
-    printf(ANSI_COLOR_YELLOW"\t\t\t\t\t    | Stationaries |");
-    printf(ANSI_COLOR_YELLOW"\n\t\t\t\t\t    ================\n"ANSI_COLOR_RESET);
+    printf("\t\t\t\t\t    | Stationaries |");
+    printf("\n\t\t\t\t\t    ================\n"ANSI_COLOR_RESET);
     printf("\n\t\t\t\t1. Books\n");
     printf("\n\t\t\t\t2. Study Equipment\n");
     printf("\n\t\t\t\t3. Lab Accessories\n");
