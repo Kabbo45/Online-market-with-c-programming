@@ -1,8 +1,9 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
+#include<time.h>
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_MAGENTA "\x1b[35m"
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -97,14 +98,41 @@ void thanks()
         printf(ANSI_COLOR_RED "\t\t\t\t\t\t  ===============\n" ANSI_COLOR_RESET);
         printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to continue shopping..." ANSI_COLOR_RESET);
     }
+
     getch();
     shop();
 }
 
+graphics()
+{
+    printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t===========================\n");
+    printf(ANSI_COLOR_RED"\t\t\t\t\t Welcome To Our Multi Shop\n");
+    printf(ANSI_COLOR_GREEN"\t\t\t\t\t===========================\n"ANSI_COLOR_RESET);
+    Sleep(1000);
+}
+
+
+credit()
+{
+        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t================================================================\n");
+        printf("\t\t\tTeam Member - 01  |  Tunazzinur Rahman Kabbo  |  ID: 19202103268\n");
+        printf(ANSI_COLOR_MAGENTA"\t\t\t----------------------------------------------------------------\n");
+        printf("\t\t\tTeam Member - 02  |  MD. Naimul Rahman        |  ID: 19202103274\n");
+        printf(ANSI_COLOR_GREEN"\t\t\t----------------------------------------------------------------\n");
+        printf("\t\t\tTeam Member - 03  |  MD. Mehedi Hasan         |  ID: 19202103264\n");
+        printf(ANSI_COLOR_RED"\t\t\t================================================================\n"ANSI_COLOR_RESET);
+
+        printf("\n\n\t\t\tPress any key to go back to main menu...");
+        Sleep(1000);
+
+}
 ///////////////////////////////////////////////////////////////////////////////
 
 int main()
 {
+    system("cls");
+    graphics();
+    Sleep(300);
     system("cls");
     int num,i;
     printf(ANSI_COLOR_RED"\n\n\t\t\t\t  _______________________\n");
@@ -122,6 +150,8 @@ int main()
     printf("\t\t\t\t2. Sign In\n");
     printf("\t\t\t\t3. Shop\n");
     printf("\t\t\t\t4. Admin Panel Log-in  \n");
+    printf("\t\t\t\t5. Credits  \n");
+    printf("\t\t\t\t6. Exit  \n");
     printf("\n\n\t\t\t\tEnter your choice : ");
     scanf("%d",&num);
     switch(num)
@@ -146,8 +176,27 @@ int main()
         admin();
         break;
 
+    case 5:
+        system("cls");
+        credit();
+        Sleep(300);
+        getch();
+        main();
+
+    case 6:
+        system("cls");
+        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
+        printf("\t\t\t\t\tThank You For Using Our Shopping System.\n");
+        printf(ANSI_COLOR_GREEN"\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
+        exit(1);
+
     default:
-        printf("Error!");
+        system("cls");
+        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t=============\n"ANSI_COLOR_RESET);
+        printf("\t\t\t\t\tWrong Choice!\n");
+        printf(ANSI_COLOR_GREEN"\t\t\t\t\t=============\n"ANSI_COLOR_RESET);
+        Sleep(1000);
+        main();
     }
     getch();
 }
