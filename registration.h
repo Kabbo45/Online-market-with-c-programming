@@ -27,7 +27,7 @@ int registration()
     printf("\t\t\t\t=> ");
     scanf("%s", &email);
     printf("\n\t\t\t\tChoose your username\n");
-    printf("\t\t\t\t --------------------\n");
+    printf("\t\t\t\t--------------------\n");
     printf("\t\t\t\t=> ");
     scanf("%s", &usrname);
     printf("\n\t\t\t\tChoose your password\n");
@@ -60,7 +60,7 @@ int registration()
     {
         do
         {
-            printf("\n\t\t\t\tOOPS! You're password didn't match\n");
+            printf(ANSI_COLOR_RED"\a\n\t\t\t\tOOPS! You're password didn't match\n"ANSI_COLOR_RESET);
             printf("\n\t\t\t\tChoose your password again\n");
             printf("\t\t\t\t--------------------------\n");
             printf("\t\t\t\t=> ");

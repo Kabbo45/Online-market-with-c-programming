@@ -28,21 +28,27 @@ void signin()
 
     if((users == 0)&&(passes == 0))
     {
-        printf("\n\n\t\t\t\t[*] Successfully logged in.");
+        system("cls");
+        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t[*] Successfully logged in."ANSI_COLOR_RESET);
+        Sleep(1000);
         shop();
     }
 
     else if((users == 0)||(passes == 0))
     {
-        printf("\n\n\t\t\t\t[*] One of your credential is wrong.\n");
-        printf("\t\t\t\t[*] Try again.");
+        system("cls");
+        printf(ANSI_COLOR_RED"\a\n\n\t\t\t\t[*] One of your credential is wrong.\n");
+        printf("\t\t\t\t[*] Try again."ANSI_COLOR_RESET);
+        getch();
         signin();
     }
 
     else
     {
-        printf("\n\n\t\t\t\t[*] Username and password didn't match.\n");
-        printf("\t\t\t\t[*] Try again.");
+        system("cls");
+        printf(ANSI_COLOR_RED"\a\n\n\t\t\t\t[*] Username and password didn't match.\n");
+        printf("\t\t\t\t[*] Try again."ANSI_COLOR_RESET);
+        getch();
         signin();
     }
 }
