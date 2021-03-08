@@ -11,16 +11,14 @@
 #define ANSI_COLOR_BLUE   "\x1b[34m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-
 void gotoxy(short x, short y)
 {
     COORD pos = {x,y};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
 }
 
-
-
 ////////////////////////////////////////////////// Structure ///////////////////////////////////////////////////////////
+
 struct shop
 {
     int code;
@@ -33,7 +31,10 @@ struct item
     char productname[40], c;
     int productid;
     int price;
+    int discount;
+    int after_discount;
 } st;
+
 ////////////////////////////////////////////////// Loading Bar /////////////////////////////////////////////////////////
 
 loadingBar()
@@ -61,8 +62,7 @@ loadingBar()
 registration()
 {
     system("cls");
-    char name[200], email[100], usrname[100], address[200];
-    char pass[100], pass2[100];
+    char name[200], email[100], usrname[100], address[200], pass[100], pass2[100];
     int mobile;
     FILE *fptr;
     fptr = fopen("regestration.txt","w");
@@ -184,7 +184,7 @@ signin()
     if((users == 0)&&(passes == 0))
     {
         login_successful();
-        shop();
+        sign_option();
     }
 
     else
@@ -319,16 +319,157 @@ menu()
     printf(ANSI_COLOR_MAGENTA"\t\t\t\t  |_________________________|\n");
     printf(ANSI_COLOR_RED"\t\t\t\t /___________________________\\\n");
     printf(ANSI_COLOR_BLUE"\t\t\t\t|_____________________________|"ANSI_COLOR_RESET);
-    printf("\n\n\t\t\t\t1. Registration\n");
-    printf("\t\t\t\t2. Sign In\n");
-    printf("\t\t\t\t3. Shop\n");
-    printf("\t\t\t\t4. Admin Panel  \n");
-    printf("\t\t\t\t5. Credits  \n");
-    printf("\t\t\t\t6. Exit  \n");
+    printf("\n\n\t\t\t\t1. User Panel\n");
+    printf("\t\t\t\t2. Admin Panel\n");
+    printf("\t\t\t\t3. Feedback\n");
+    printf("\t\t\t\t4. Credits\n");
+    printf("\t\t\t\t5. Exit\n");
     printf("\n\n\t\t\t\tEnter your choice : ");
     scanf("%d",&num);
     switch(num)
     {
+    case 1:
+        loadingBar();
+        user_panel();
+        break;
+
+    case 2:
+        loadingBar();
+        admin();
+        break;
+
+    case 3:
+        feedback();
+        break;
+
+    case 4:
+        credit();
+        break;
+
+    case 5:
+        system("cls");
+        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
+        printf("\t\t\t\t\tThank You For Using Our Shopping System.\n");
+        printf(ANSI_COLOR_GREEN"\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
+        exit(1);
+        break;
+
+    default:
+        wrong();
+        break;
+    }
+}
+
+feedback()
+{
+    system("cls");
+    printf(ANSI_COLOR_MAGENTA"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb FEEDBACK \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    char name[500];
+    char email[500];
+    char str[500];
+    FILE *fp;
+    fp = fopen("feedback.txt", "w");
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter Your Full Name: ");
+    scanf("%[^\n]s", name);
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter Your E-mail: ");
+    scanf("%[^\n]s", email);
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter Your E-mail: ");
+    scanf("%[^\n]s", str);
+    fprintf(fp, "Name: %s\nE-mail: %s\nFeedback: %s", name, email, str);
+}
+
+
+sign_option()
+{
+    system("cls");
+    int z;
+    printf(ANSI_COLOR_MAGENTA"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb User Option \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] Enter Shop");
+    printf("\n\t\t\t\t\t[2] Edit Profile");
+    printf("\n\t\t\t\t\t[3] Product Request");
+    printf("\n\t\t\t\t\t[4] <= Back");
+    printf("\n\t\t\t\t\t[5] Exit!");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        loadingBar();
+        shop();
+        break;
+
+    case 2:
+        loadingBar();
+        signin();
+        break;
+
+    case 3:
+        loadingBar();
+        request();
+        break;
+
+    case 4:
+        user_panel();
+
+    case 5:
+        exit(0);
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        sign_option();
+    }
+
+}
+
+request()
+{
+    system("cls");
+    printf(ANSI_COLOR_BLUE"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Request Product \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    char str[300];
+    FILE *fp;
+
+    if((fp = fopen("request.dat", "w"))==NULL)
+    {
+        printf("Cannot open file.\n");
+        exit(1);
+    }
+
+    do
+    {
+        printf("\n\t\t\t\t[*]Enter Your Requested Product Name & Details\n");
+        gets(str);
+        strcat(str, "\n");
+        fputs(str, fp);
+    }
+    while(*str!='\n');
+
+    sign_option();
+}
+
+user_panel()
+{
+    system("cls");
+    int z;
+    printf(ANSI_COLOR_GREEN"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb User Panel \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] Registration");
+    printf("\n\t\t\t\t\t[2] Sign-in");
+    printf("\n\t\t\t\t\t[3] Enter shop as a guest");
+    printf("\n\t\t\t\t\t[4] <= Back");
+    printf("\n\t\t\t\t\t[5] Exit!");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
     case 1:
         loadingBar();
         registration();
@@ -345,31 +486,31 @@ menu()
         break;
 
     case 4:
-        loadingBar();
-        admin();
-        break;
+        menu();
 
     case 5:
-        credit();
-        break;
-
-    case 6:
-        system("cls");
-        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
-        printf("\t\t\t\t\tThank You For Using Our Shopping System.\n");
-        printf(ANSI_COLOR_GREEN"\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
-        exit(1);
-        break;
+        exit(0);
 
     default:
-        wrong();
-        break;
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        user_panel();
     }
-}
 
+}
 /////////////////////////////////////////////////// Admin ////////////////////////////////////////////////////////////
 
-void admin_login()
+admin()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\n\n\n\n\n\n\t\t\t      \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n");
+    printf("\n\t\t\t\t You have to log in first to access the admin panel.");
+    printf(ANSI_COLOR_BLUE"\n\n\t\t\t\t\t     Press any key to login.");
+    printf(ANSI_COLOR_RED"\n\n\t\t\t      \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    getch();
+    admin_login();
+}
+admin_login()
 {
     system("cls");
     int i = 0;
@@ -404,9 +545,6 @@ void admin_login()
     }
     main();
 }
-
-
-
 admin_panel()
 {
     system("cls");
@@ -422,223 +560,86 @@ admin_panel()
     printf("\t\t\t\tEnter your choice: ");
     scanf("%d", &z);
 
-    if (z==1)
-        add_item();
-    else if (z==2)
+    switch(z)
+    {
+
+    case 1:
+        add();
+
+    case 2:
         deleteproduct();
-    else if (z == 4)
-        edit_item();
-    else if (z == 3)
-        read_item();
 
-}
+    case 3:
+        read();
 
-////////////////////////////////////////////// add items //////////////////////////////////////////////////////////////
+    case 4:
+        edits();
 
-add_graphics()
-{
-    system("cls");
-    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb ADD PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
-}
-
-void add_item()
-{
-    int index, valid;
-    char c;
-    int ID;
-    int a=0;
-    FILE *fp;
-    do
-    {
-        add_graphics();
-        fp = fopen("product.dat","a+");
-
-        if((fp = fopen("product.dat","a+"))!=NULL)
-        {
-I:
-            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Code: "ANSI_COLOR_RESET);
-            scanf("%d",&ID);
-            while(fscanf(fp,"%s %d %d", &st.productname, &st.price, &st.productid)!=EOF)
-            {
-                if(ID == st.productid)
-                {
-                    do
-                    {
-                        add_graphics();
-                        printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t   [*] THE PRODUCT CODE ALREADY EXIST.\n");
-                        printf(ANSI_COLOR_GREEN"\n\t\t\t\t   Press any key to continue...\n"ANSI_COLOR_RESET);
-                        getch();
-                        add_graphics();
-                        goto I;
-                    }
-                    while(ID =! st.productid);
-                }
-            }
-            st.productid = ID;
-        }
-
-        else
-        {
-            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Product Code: "ANSI_COLOR_RESET);
-            scanf("%d", &st.productid);
-        }
-
-        do
-        {
-            fflush(stdin);
-            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
-            gets(st.productname);
-            st.productname[0]=toupper(st.productname[0]);
-            for (index=0; index < strlen(st.productname); ++index)
-            {
-                if(isalpha(st.productname[index]))
-                    valid = 1;
-                else
-                {
-                    valid = 0;
-                    break;
-                }
-            }
-            if (!valid)
-            {
-                printf(ANSI_COLOR_RED"\nName contain invalid character. Please 'Enter' again"ANSI_COLOR_RESET);
-                getch();
-            }
-        }
-        while(!valid);
-
-
-        printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Price: "ANSI_COLOR_RESET);
-        scanf("%d",&st.price);
-
-        fp=fopen("product.dat","a");
-        fprintf(fp,"\n%s %d %d", st.productname, st.price, st.productid);
-        fclose(fp);
-        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\tPress 'Enter' to add more item or any other key to go to admin panel"ANSI_COLOR_RESET);
-    }
-    while((c = getch()) =='\r');
-    admin_panel();
-}
-
-
-//////////////////////////////////////////////////////////ITEM VIEW///////////////////////////////////////////////////
-item_view()
-{
-    system("cls");
-    FILE *f;
-    int i, q;
-    if((f=fopen("product.dat","r"))==NULL)
-    {
-        gotoxy(10,3);
-        printf("NO RECORDS");
-        printf("\n\t\tPress any key to go back to Menu.");
-        getch();
+    case 5:
         menu();
-    }
-    else
-    {
-        gotoxy(0,5);
-        printf("\t\t\t      ");
-        for(i = 0; i < 50; i++)
-        {
-            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
-        }
-        gotoxy(5,6);
-        printf("\t\t\t\tName");
-        gotoxy(25,6);
-        printf("\t\t\t\tPrice");
-        gotoxy(40,6);
-        printf("\t\t\t\tCode\n");
 
-        printf("\t\t\t      ");
-        for(i = 0; i < 50; i++)
-        {
-            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
-        }
+    case 6:
+        exit(0);
 
-        q = 8;
-        while(fscanf(f,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
-        {
-            gotoxy(5,q);
-            printf("\t\t\t\t%s", st.productname);
-            gotoxy(25,q);
-            printf("\t\t\t\t%d", st.price);
-            gotoxy(40,q);
-            printf("\t\t\t\t%d", st.productid);
-            q++;
-        }
-
-        printf("\n\t\t\t      ");
-        for(i = 0; i < 50; i++)
-            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
-    }
-    fclose(f);
-}
-///////////////////////////////////////////////READ ITEM ADMIN MENU///////////////////////////////////////////////////
-void read_item()
-{
-    item_view();
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
-    getch();
-    admin_panel();
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-delete_graphics()
-{
-    system("cls");
-    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb DELETE PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
-}
-void deleteproduct(void)
-{
-    char target[40];
-    int found=0;
-    FILE *sfile, *tfile;
-    sfile=fopen("product.dat","r");
-    tfile=fopen("TempFile.dat","w+");
-    delete_graphics();
-    printf("\n\t\t\t\tEnter Name To Delete: ");
-    fflush(stdin);
-    scanf("%s",target);
-    target[0]=toupper(target[0]);
-    while (fscanf(sfile,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
-    {
-        if(strcmp(target, st.productname)==0)
-        {
-            found=1;
-        }
-        else
-        {
-            fprintf(tfile,"%s %d %d\n", st.productname, st.price, st.productid);
-        }
-    }
-    if(!found)
-    {
-        delete_graphics();
-        printf(ANSI_COLOR_RED"\n\n\a\t\t\t\t\t\tRecord not found!!"ANSI_COLOR_RESET);
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
         getch();
         admin_panel();
     }
-    else
-    {
-        printf("\n\n\t\t\t\t\t\tRecord deleted");
-    }
-    fclose(sfile);
-    fclose(tfile);
-    remove("product.dat");
-    rename("TempFile.dat","product.dat");
 
-    printf("\n\n\n\t\t\t\tPress any key to go to admin panel!");
-    while((st.c = getch()) =='\r');
-    admin_panel();
+
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-edit_graphics()
+
+/////////////////////////////////////////////////////////////////////////// ---------- Edit ----------- ///////////////////////////////////////////////////////////////////////////////////
+
+edits()
 {
     system("cls");
-    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb EDIT PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
-}
+    int z;
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb EDIT PRODUCTS \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] Edit Male Products");
+    printf("\n\t\t\t\t\t[2] Edit Female Products");
+    printf("\n\t\t\t\t\t[3] Edit Children Products");
+    printf("\n\t\t\t\t\t[4] Edit Electronics Products");
+    printf("\n\t\t\t\t\t[5] Edit Discounted Products");
+    printf("\n\t\t\t\t\t[6] <= Back");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
 
-edit_item()
+    switch(z)
+    {
+
+    case 1:
+        edit_male();
+
+    case 2:
+        edit_female();
+
+    case 3:
+        edit_children();
+
+    case 4:
+        edit_electronics();
+
+    case 5:
+        edit_discount();
+
+    case 6:
+        admin_panel();
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+}
+edit_male_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb EDIT MALE PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+edit_male()
 {
     int index, valid;
     char target[40];
@@ -647,9 +648,9 @@ edit_item()
     int id;
     char edit;
     long int size = sizeof(st);
-    if((fp=fopen("product.dat","r+"))==NULL)
+    if((fp=fopen("male.dat","r+"))==NULL)
     {
-        edit_graphics();
+        edit_male_graphics();
         printf("NO RECORD FOUND.");
         getch();
         admin_panel();
@@ -657,12 +658,12 @@ edit_item()
     else
     {
         system("cls");
-        edit_graphics();
+        edit_male_graphics();
         rp = fopen("TempFile.dat","a");
         printf("\n\t\t\t\tEnter Item's Code to edit: ");
         scanf("%d",&id);
         fflush(stdin);
-        while(fscanf(fp,"%s %i %i\n", &st.productname, &st.price, &st.productid)!=EOF)
+        while(fscanf(fp,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
         {
             if(id == st.productid)
             {
@@ -724,25 +725,1511 @@ edit_item()
         }
         fclose(rp);
         fclose(fp);
-        remove("product.dat");
-        rename("TempFile.dat","product.dat");
+        remove("male.dat");
+        rename("TempFile.dat","male.dat");
         getch();
     }
-    admin_panel();
+    edits();
+}
+edit_female_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb EDIT FEMALE PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+edit_female()
+{
+    int index, valid;
+    char target[40];
+    FILE *fp, *rp;
+    int a=0;
+    int id;
+    char edit;
+    long int size = sizeof(st);
+    if((fp=fopen("female.dat","r+"))==NULL)
+    {
+        edit_female_graphics();
+        printf("NO RECORD FOUND.");
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        system("cls");
+        edit_female_graphics();
+        rp = fopen("TempFile.dat","a");
+        printf("\n\t\t\t\tEnter Item's Code to edit: ");
+        scanf("%d",&id);
+        fflush(stdin);
+        while(fscanf(fp,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                a = 1;
+                printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb RECORD FOUND \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n");
+                printf("\n\t\t\t\tItem's Name: %s", st.productname);
+                printf("\n\t\t\t\tPrice: %d", st.price);
+                printf("\n\t\t\t\tItem's Code: %d"ANSI_COLOR_RESET, st.productid);
+
+                printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb NEW RECORD \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
+                do
+                {
+                    fflush(stdin);
+                    printf("\n\t\t\t\tNew Item's Name\t\t: ");
+                    gets(st.productname);
+                    st.productname[0] = toupper(st.productname[0]);
+                    for (index = 0; index < strlen(st.productname); ++index)
+                    {
+                        if(isalpha(st.productname[index]))
+                            valid = 1;
+                        else
+                        {
+                            valid = 0;
+                            break;
+                        }
+                    }
+                    if (!valid)
+                    {
+                        printf("\n Name contain invalid character. Please 'Enter' again");
+                        getch();
+                    }
+                }
+                while(!valid);
+
+                printf("\n\t\t\t\tEnter New Price: ");
+                scanf("%d", &st.price);
+                printf("\n\t\t\t\tEnter New Item's Code: "ANSI_COLOR_RESET);
+                scanf("%d", &st.productid);
+
+                printf("\n\n\t\t\t\tPress 'Y' to edit the existing record or any key to cancel");
+                edit=getche();
+                if(edit == 'y' || edit == 'Y')
+                {
+                    fprintf(rp,"%s %d %d\n", st.productname, st.price, st.productid);
+                    fflush(stdin);
+                    printf("\n\n\t\t\t\tYOUR RECORD IS SUCCESSFULLY EDITED!!!");
+                }
+            }
+            else
+            {
+                fprintf(rp,"%s %d %d\n", st.productname, st.price, st.productid);
+                fflush(stdin);
+            }
+
+        }
+        if(!a)
+        {
+            printf("\n\n\t\t\t\tTHIS ITEM DOESN'T EXIST!!!!");
+        }
+        fclose(rp);
+        fclose(fp);
+        remove("female.dat");
+        rename("TempFile.dat","female.dat");
+        getch();
+    }
+    edits();
+}
+edit_child_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb EDIT CHILDREN PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+edit_children()
+{
+    int index, valid;
+    char target[40];
+    FILE *fp, *rp;
+    int a=0;
+    int id;
+    char edit;
+    long int size = sizeof(st);
+    if((fp=fopen("child.dat","r+"))==NULL)
+    {
+        edit_child_graphics();
+        printf("NO RECORD FOUND.");
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        system("cls");
+        edit_child_graphics();
+        rp = fopen("TempFile.dat","a");
+        printf("\n\t\t\t\tEnter Item's Code to edit: ");
+        scanf("%d",&id);
+        fflush(stdin);
+        while(fscanf(fp,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                a = 1;
+                printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb RECORD FOUND \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n");
+                printf("\n\t\t\t\tItem's Name: %s", st.productname);
+                printf("\n\t\t\t\tPrice: %d", st.price);
+                printf("\n\t\t\t\tItem's Code: %d"ANSI_COLOR_RESET, st.productid);
+
+                printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb NEW RECORD \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
+                do
+                {
+                    fflush(stdin);
+                    printf("\n\t\t\t\tNew Item's Name\t\t: ");
+                    gets(st.productname);
+                    st.productname[0] = toupper(st.productname[0]);
+                    for (index = 0; index < strlen(st.productname); ++index)
+                    {
+                        if(isalpha(st.productname[index]))
+                            valid = 1;
+                        else
+                        {
+                            valid = 0;
+                            break;
+                        }
+                    }
+                    if (!valid)
+                    {
+                        printf("\n Name contain invalid character. Please 'Enter' again");
+                        getch();
+                    }
+                }
+                while(!valid);
+
+                printf("\n\t\t\t\tEnter New Price: ");
+                scanf("%d", &st.price);
+                printf("\n\t\t\t\tEnter New Item's Code: "ANSI_COLOR_RESET);
+                scanf("%d", &st.productid);
+
+                printf("\n\n\t\t\t\tPress 'Y' to edit the existing record or any key to cancel");
+                edit=getche();
+                if(edit == 'y' || edit == 'Y')
+                {
+                    fprintf(rp,"%s %d %d\n", st.productname, st.price, st.productid);
+                    fflush(stdin);
+                    printf("\n\n\t\t\t\tYOUR RECORD IS SUCCESSFULLY EDITED!!!");
+                }
+            }
+            else
+            {
+                fprintf(rp,"%s %d %d\n", st.productname, st.price, st.productid);
+                fflush(stdin);
+            }
+
+        }
+        if(!a)
+        {
+            printf("\n\n\t\t\t\tTHIS ITEM DOESN'T EXIST!!!!");
+        }
+        fclose(rp);
+        fclose(fp);
+        remove("child.dat");
+        rename("TempFile.dat","child.dat");
+        getch();
+    }
+    edits();
+}
+edit_elec_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb EDIT ELECTRONIC PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+edit_electronics()
+{
+    int index, valid;
+    char target[40];
+    FILE *fp, *rp;
+    int a=0;
+    int id;
+    char edit;
+    long int size = sizeof(st);
+    if((fp=fopen("elec.dat","r+"))==NULL)
+    {
+        edit_elec_graphics();
+        printf("NO RECORD FOUND.");
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        system("cls");
+        edit_elec_graphics();
+        rp = fopen("TempFile.dat","a");
+        printf("\n\t\t\t\tEnter Item's Code to edit: ");
+        scanf("%d",&id);
+        fflush(stdin);
+        while(fscanf(fp,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                a = 1;
+                printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb RECORD FOUND \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n");
+                printf("\n\t\t\t\tItem's Name: %s", st.productname);
+                printf("\n\t\t\t\tPrice: %d", st.price);
+                printf("\n\t\t\t\tItem's Code: %d"ANSI_COLOR_RESET, st.productid);
+
+                printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb NEW RECORD \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
+                do
+                {
+                    fflush(stdin);
+                    printf("\n\t\t\t\tNew Item's Name\t\t: ");
+                    gets(st.productname);
+                    st.productname[0] = toupper(st.productname[0]);
+                    for (index = 0; index < strlen(st.productname); ++index)
+                    {
+                        if(isalpha(st.productname[index]))
+                            valid = 1;
+                        else
+                        {
+                            valid = 0;
+                            break;
+                        }
+                    }
+                    if (!valid)
+                    {
+                        printf("\n Name contain invalid character. Please 'Enter' again");
+                        getch();
+                    }
+                }
+                while(!valid);
+
+                printf("\n\t\t\t\tEnter New Price: ");
+                scanf("%d", &st.price);
+                printf("\n\t\t\t\tEnter New Item's Code: "ANSI_COLOR_RESET);
+                scanf("%d", &st.productid);
+
+                printf("\n\n\t\t\t\tPress 'Y' to edit the existing record or any key to cancel");
+                edit=getche();
+                if(edit == 'y' || edit == 'Y')
+                {
+                    fprintf(rp,"%s %d %d\n", st.productname, st.price, st.productid);
+                    fflush(stdin);
+                    printf("\n\n\t\t\t\tYOUR RECORD IS SUCCESSFULLY EDITED!!!");
+                }
+            }
+            else
+            {
+                fprintf(rp,"%s %d %d\n", st.productname, st.price, st.productid);
+                fflush(stdin);
+            }
+
+        }
+        if(!a)
+        {
+            printf("\n\n\t\t\t\tTHIS ITEM DOESN'T EXIST!!!!");
+        }
+        fclose(rp);
+        fclose(fp);
+        remove("elec.dat");
+        rename("TempFile.dat","elec.dat");
+        getch();
+    }
+    edits();
+}
+edit_discount_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb EDIT DISCOUNT PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+edit_discount()
+{
+    int index, valid;
+    char target[40];
+    FILE *fp, *rp;
+    int a=0;
+    int id;
+    char edit;
+    long int size = sizeof(st);
+    if((fp=fopen("discount.dat","r+"))==NULL)
+    {
+        edit_discount_graphics();
+        printf(ANSI_COLOR_RED"\n\t\t\t\tNO RECORD FOUND."ANSI_COLOR_RESET);
+        getch();
+        edits();
+    }
+    else
+    {
+        system("cls");
+        edit_discount_graphics();
+        rp = fopen("Temp_discount.dat","a");
+        printf("\n\t\t\t\tEnter Item's Code to edit: ");
+        scanf("%d",&id);
+        fflush(stdin);
+        while(fscanf(fp,"%d %s %d %d %d", &st.productid, &st.productname, &st.price, &st.discount, &st.after_discount)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                a = 1;
+                printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb RECORD FOUND \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n");
+                printf("\n\t\t\t\tItem's Code: %d", st.productid);
+                printf("\n\t\t\t\tItem's Name: %s", st.productname);
+                printf("\n\t\t\t\tOriginal Price: %d", st.price);
+                printf(ANSI_COLOR_RED"\n\t\t\t\tDiscount Percentage: %d"ANSI_COLOR_RESET, st.discount);
+                printf(ANSI_COLOR_GREEN"\n\t\t\t\tDiscounted Price: %d"ANSI_COLOR_RESET, st.after_discount);
+
+                printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb NEW RECORD \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
+                do
+                {
+
+                    printf("\n\t\t\t\tEnter New Item's Code: "ANSI_COLOR_RESET);
+                    scanf("%d", &st.productid);
+                    fflush(stdin);
+                    printf("\n\t\t\t\tEnter New Item's Name\t\t: ");
+                    gets(st.productname);
+                    st.productname[0] = toupper(st.productname[0]);
+                    for (index = 0; index < strlen(st.productname); ++index)
+                    {
+                        if(isalpha(st.productname[index]))
+                            valid = 1;
+                        else
+                        {
+                            valid = 0;
+                            break;
+                        }
+                    }
+                    if (!valid)
+                    {
+                        printf("\n\t\t\t\tName contain invalid character. Please 'Enter' again");
+                        getch();
+                    }
+                }
+                while(!valid);
+
+                printf("\n\t\t\t\tEnter New Price: ");
+                scanf("%d", &st.price);
+                printf("\n\t\t\t\tEnter New Discount Percentage: ");
+                scanf("%d", &st.discount);
+
+                int sum;
+                sum = (st.discount*st.price)/100;
+                st.after_discount = (st.price-sum);
+
+
+                printf("\n\n\t\t\t\tPress 'Y' to edit the existing record or any key to cancel");
+                edit=getche();
+                if(edit == 'y' || edit == 'Y')
+                {
+                    fprintf(rp,"%d %s %d %d %d", st.productid, st.productname, st.price, st.discount, st.after_discount);
+                    fflush(stdin);
+                    printf(ANSI_COLOR_BLUE"\n\n\t\t\t\tYOUR RECORD IS SUCCESSFULLY EDITED!!!"ANSI_COLOR_RESET);
+                }
+            }
+            else
+            {
+                fprintf(rp,"%d %s %d %d %d", st.productid, st.productname, st.price, st.discount, st.after_discount);
+                fflush(stdin);
+            }
+
+        }
+        if(!a)
+        {
+            printf("\n\n\t\t\t\tTHIS ITEM DOESN'T EXIST!!!!");
+        }
+        fclose(rp);
+        fclose(fp);
+        remove("discount.dat");
+        rename("Temp_discount.dat","discount.dat");
+        getch();
+    }
+    edits();
+}
+
+//////////////////////////////////////////////////////////////////////// ---------- Read ------------ /////////////////////////////////////////////////////////////////////////////////
+
+read()
+{
+    system("cls");
+    int z;
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb VIEW PRODUCTS \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] View Male Products");
+    printf("\n\t\t\t\t\t[2] View Female Products");
+    printf("\n\t\t\t\t\t[3] View Children Products");
+    printf("\n\t\t\t\t\t[4] View Electronics Products");
+    printf("\n\t\t\t\t\t[5] View Discounted Products");
+    printf("\n\t\t\t\t\t[6] <= Back");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        read_male();
+
+    case 2:
+        read_female();
+
+    case 3:
+        read_children();
+
+    case 4:
+        read_electronics();
+
+    case 5:
+        read_discount();
+
+    case 6:
+        admin_panel();
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+}
+male_item_view()
+{
+    system("cls");
+    FILE *f;
+    int i, q;
+    if((f=fopen("male.dat","r"))==NULL)
+    {
+        gotoxy(10,3);
+        printf("NO RECORDS");
+        printf("\n\t\tPress any key to go back");
+        getch();
+        read();
+    }
+    else
+    {
+        gotoxy(0,5);
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+        gotoxy(5,6);
+        printf("\t\t\t\tName");
+        gotoxy(25,6);
+        printf("\t\t\t\tPrice");
+        gotoxy(40,6);
+        printf("\t\t\t\tCode\n");
+
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+
+        q = 8;
+        while(fscanf(f,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            gotoxy(5,q);
+            printf("\t\t\t\t%s", st.productname);
+            gotoxy(25,q);
+            printf("\t\t\t\t%d", st.price);
+            gotoxy(40,q);
+            printf("\t\t\t\t%d", st.productid);
+            q++;
+        }
+
+        printf("\n\t\t\t      ");
+        for(i = 0; i < 50; i++)
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+    }
+    fclose(f);
+}
+read_male()
+{
+    male_item_view();
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    getch();
+    read();
+}
+female_item_view()
+{
+    system("cls");
+    FILE *f;
+    int i, q;
+    if((f=fopen("female.dat","r"))==NULL)
+    {
+        gotoxy(10,3);
+        printf("NO RECORDS");
+        printf("\n\t\tPress any key to go back");
+        getch();
+        read();
+    }
+    else
+    {
+        gotoxy(0,5);
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+        gotoxy(5,6);
+        printf("\t\t\t\tName");
+        gotoxy(25,6);
+        printf("\t\t\t\tPrice");
+        gotoxy(40,6);
+        printf("\t\t\t\tCode\n");
+
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+
+        q = 8;
+        while(fscanf(f,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            gotoxy(5,q);
+            printf("\t\t\t\t%s", st.productname);
+            gotoxy(25,q);
+            printf("\t\t\t\t%d", st.price);
+            gotoxy(40,q);
+            printf("\t\t\t\t%d", st.productid);
+            q++;
+        }
+
+        printf("\n\t\t\t      ");
+        for(i = 0; i < 50; i++)
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+    }
+    fclose(f);
+}
+read_female()
+{
+    female_item_view();
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    getch();
+    read();
+}
+child_item_view()
+{
+    system("cls");
+    FILE *f;
+    int i, q;
+    if((f=fopen("child.dat","r"))==NULL)
+    {
+        gotoxy(10,3);
+        printf("NO RECORDS");
+        printf("\n\t\tPress any key to go back");
+        getch();
+        read();
+    }
+    else
+    {
+        gotoxy(0,5);
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+        gotoxy(5,6);
+        printf("\t\t\t\tName");
+        gotoxy(25,6);
+        printf("\t\t\t\tPrice");
+        gotoxy(40,6);
+        printf("\t\t\t\tCode\n");
+
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+
+        q = 8;
+        while(fscanf(f,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            gotoxy(5,q);
+            printf("\t\t\t\t%s", st.productname);
+            gotoxy(25,q);
+            printf("\t\t\t\t%d", st.price);
+            gotoxy(40,q);
+            printf("\t\t\t\t%d", st.productid);
+            q++;
+        }
+
+        printf("\n\t\t\t      ");
+        for(i = 0; i < 50; i++)
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+    }
+    fclose(f);
+}
+read_children()
+{
+    child_item_view();
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    getch();
+    read();
+}
+elec_item_view()
+{
+    system("cls");
+    FILE *f;
+    int i, q;
+    if((f=fopen("elec.dat","r"))==NULL)
+    {
+        gotoxy(10,3);
+        printf("NO RECORDS");
+        printf("\n\t\tPress any key to go back");
+        getch();
+        read();
+    }
+    else
+    {
+        gotoxy(0,5);
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+        gotoxy(5,6);
+        printf("\t\t\t\tName");
+        gotoxy(25,6);
+        printf("\t\t\t\tPrice");
+        gotoxy(40,6);
+        printf("\t\t\t\tCode\n");
+
+        printf("\t\t\t      ");
+        for(i = 0; i < 50; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+
+        q = 8;
+        while(fscanf(f,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            gotoxy(5,q);
+            printf("\t\t\t\t%s", st.productname);
+            gotoxy(25,q);
+            printf("\t\t\t\t%d", st.price);
+            gotoxy(40,q);
+            printf("\t\t\t\t%d", st.productid);
+            q++;
+        }
+
+        printf("\n\t\t\t      ");
+        for(i = 0; i < 50; i++)
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+    }
+    fclose(f);
+}
+read_electronics()
+{
+    elec_item_view();
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    getch();
+    read();
+}
+item_view_discount()
+{
+    system("cls");
+    FILE *f;
+    int i, q;
+    if((f=fopen("discount.dat","r"))==NULL)
+    {
+        gotoxy(10,3);
+        printf(ANSI_COLOR_RED"\n\t\t\t\tNO RECORDS"ANSI_COLOR_RESET);
+        printf("\n\t\t\t\tPress any key to go back.");
+        getch();
+        read();
+    }
+    else
+    {
+        gotoxy(0,5);
+        printf("\t\t");
+        for(i = 0; i < 88; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+        gotoxy(5,6);
+        printf("\t\tCode");
+        gotoxy(15,6);
+        printf("\t\tName");
+        gotoxy(30,6);
+        printf("\t\tOriginal Price\n");
+        gotoxy(50,6);
+        printf("\t\tDiscount Percentage\n");
+        gotoxy(72,6);
+        printf("\t\tDiscounted Price\n");
+
+        printf("\t\t");
+        for(i = 0; i < 88; i++)
+        {
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+        }
+
+        q = 8;
+        while(fscanf(f,"%d %s %d %d %d", &st.productid, &st.productname, &st.price, &st.discount, &st.after_discount)!=EOF)
+        {
+            gotoxy(5,q);
+            printf("\t\t%d", st.productid);
+            gotoxy(15,q);
+            printf("\t\t%s", st.productname);
+            gotoxy(30,q);
+            printf("\t\t    %d", st.price);
+            gotoxy(50,q);
+            printf("\t\t       %d%%", st.discount);
+            gotoxy(72,q);
+            printf("\t\t     %d", st.after_discount);
+            q++;
+        }
+
+        printf("\n\t\t");
+        for(i = 0; i < 88; i++)
+            printf(ANSI_COLOR_RED"_"ANSI_COLOR_RESET);
+    }
+    fclose(f);
+}
+read_discount()
+{
+    item_view_discount();
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go back!"ANSI_COLOR_RESET);
+    getch();
+    read();
+}
+
+/////////////////////////////////////////////////////////////////////////////////// ---------- Delete ------------- //////////////////////////////////////////////////////////////////////////////////
+
+deleteproduct()
+{
+    system("cls");
+    int z;
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb DELETE PRODUCTS \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] Delete Male Products");
+    printf("\n\t\t\t\t\t[2] Delete Female Products");
+    printf("\n\t\t\t\t\t[3] Delete Children Products");
+    printf("\n\t\t\t\t\t[4] Delete Electronics Products");
+    printf("\n\t\t\t\t\t[5] Delete Discounted Products");
+    printf("\n\t\t\t\t\t[6] <= Back");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        del_male();
+
+    case 2:
+        del_female();
+
+    case 3:
+        del_children();
+
+    case 4:
+        del_electronics();
+
+    case 5:
+        del_discount();
+
+    case 6:
+        admin_panel();
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+}
+del_male_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb DELETE MALE PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+del_male()
+{
+    char target[40];
+    int found=0;
+    FILE *sfile, *tfile;
+    sfile=fopen("male.dat","r");
+    tfile=fopen("TempFile.dat","w+");
+    del_male_graphics();
+    printf("\n\t\t\t\tEnter Name To Delete: ");
+    fflush(stdin);
+    scanf("%s",target);
+    target[0]=toupper(target[0]);
+    while (fscanf(sfile,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+    {
+        if(strcmp(target, st.productname)==0)
+        {
+            found=1;
+        }
+        else
+        {
+            fprintf(tfile,"%s %d %d\n", st.productname, st.price, st.productid);
+        }
+    }
+    if(!found)
+    {
+        del_male_graphics();
+        printf(ANSI_COLOR_RED"\n\n\a\t\t\t\t\t\tRecord not found!!"ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        printf("\n\n\t\t\t\t\t\tRecord deleted");
+    }
+    fclose(sfile);
+    fclose(tfile);
+    remove("male.dat");
+    rename("TempFile.dat","male.dat");
+
+    printf("\n\n\n\t\t\t\tPress any key to go to admin panel!");
+    while((st.c = getch()) =='\r');
+    deleteproduct();
+}
+del_female_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb DELETE FEMALE PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+del_female()
+{
+    char target[40];
+    int found=0;
+    FILE *sfile, *tfile;
+    sfile=fopen("female.dat","r");
+    tfile=fopen("TempFile.dat","w+");
+    del_female_graphics();
+    printf("\n\t\t\t\tEnter Name To Delete: ");
+    fflush(stdin);
+    scanf("%s",target);
+    target[0]=toupper(target[0]);
+    while (fscanf(sfile,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+    {
+        if(strcmp(target, st.productname)==0)
+        {
+            found=1;
+        }
+        else
+        {
+            fprintf(tfile,"%s %d %d\n", st.productname, st.price, st.productid);
+        }
+    }
+    if(!found)
+    {
+        del_female_graphics();
+        printf(ANSI_COLOR_RED"\n\n\a\t\t\t\t\t\tRecord not found!!"ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        printf("\n\n\t\t\t\t\t\tRecord deleted");
+    }
+    fclose(sfile);
+    fclose(tfile);
+    remove("female.dat");
+    rename("TempFile.dat","female.dat");
+
+    printf("\n\n\n\t\t\t\tPress any key to go to admin panel!");
+    while((st.c = getch()) =='\r');
+    deleteproduct();
+}
+del_child_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb DELETE CHILDREN PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+del_children()
+{
+    char target[40];
+    int found=0;
+    FILE *sfile, *tfile;
+    sfile=fopen("child.dat","r");
+    tfile=fopen("TempFile.dat","w+");
+    del_child_graphics();
+    printf("\n\t\t\t\tEnter Name To Delete: ");
+    fflush(stdin);
+    scanf("%s",target);
+    target[0]=toupper(target[0]);
+    while (fscanf(sfile,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+    {
+        if(strcmp(target, st.productname)==0)
+        {
+            found=1;
+        }
+        else
+        {
+            fprintf(tfile,"%s %d %d\n", st.productname, st.price, st.productid);
+        }
+    }
+    if(!found)
+    {
+        del_child_graphics();
+        printf(ANSI_COLOR_RED"\n\n\a\t\t\t\t\t\tRecord not found!!"ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        printf("\n\n\t\t\t\t\t\tRecord deleted");
+    }
+    fclose(sfile);
+    fclose(tfile);
+    remove("child.dat");
+    rename("TempFile.dat","child.dat");
+
+    printf("\n\n\n\t\t\t\tPress any key to go to admin panel!");
+    while((st.c = getch()) =='\r');
+    deleteproduct();
+}
+del_elec_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb DELETE ELECTRONIC PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+del_electronics()
+{
+    char target[40];
+    int found=0;
+    FILE *sfile, *tfile;
+    sfile=fopen("elec.dat","r");
+    tfile=fopen("TempFile.dat","w+");
+    del_elec_graphics();
+    printf("\n\t\t\t\tEnter Name To Delete: ");
+    fflush(stdin);
+    scanf("%s",target);
+    target[0]=toupper(target[0]);
+    while (fscanf(sfile,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+    {
+        if(strcmp(target, st.productname)==0)
+        {
+            found=1;
+        }
+        else
+        {
+            fprintf(tfile,"%s %d %d\n", st.productname, st.price, st.productid);
+        }
+    }
+    if(!found)
+    {
+        del_elec_graphics();
+        printf(ANSI_COLOR_RED"\n\n\a\t\t\t\t\t\tRecord not found!!"ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        printf("\n\n\t\t\t\t\t\tRecord deleted");
+    }
+    fclose(sfile);
+    fclose(tfile);
+    remove("elec.dat");
+    rename("TempFile.dat","elec.dat");
+
+    printf("\n\n\n\t\t\t\tPress any key to go to admin panel!");
+    while((st.c = getch()) =='\r');
+    deleteproduct();
+}
+del_discount_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb DELETE DISCOUNT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+del_discount()
+{
+    char target[40];
+    int found=0;
+    FILE *sfile, *tfile;
+    sfile=fopen("discount.dat","r");
+    tfile=fopen("Temp_discount.dat","w+");
+    del_discount_graphics();
+    printf("\n\t\t\t\tEnter Name To Delete: ");
+    fflush(stdin);
+    scanf("%s",target);
+    target[0]=toupper(target[0]);
+    while (fscanf(sfile,"%d %s %d %d %d", &st.productid, &st.productname, &st.price, &st.discount, &st.after_discount)!=EOF)
+    {
+        if(strcmp(target, st.productname)==0)
+        {
+            found=1;
+        }
+        else
+        {
+            fprintf(tfile,"%d %s %d %d %d", st.productid, st.productname, st.price, st.discount, st.after_discount);
+        }
+    }
+    if(!found)
+    {
+        del_discount_graphics();
+        printf(ANSI_COLOR_RED"\n\n\a\t\t\t\t\t\tRecord not found!!"ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+    else
+    {
+        printf("\n\n\t\t\t\t\t\tRecord deleted");
+    }
+    fclose(sfile);
+    fclose(tfile);
+    remove("discount.dat");
+    rename("Temp_discount.dat","discount.dat");
+    printf("\n\n\n\t\t\t\tPress any key to go back!");
+    while((st.c = getch()) =='\r');
+    deleteproduct();
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////// -----------ADD----------- ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-admin()
+add()
 {
     system("cls");
-    printf(ANSI_COLOR_RED"\n\n\n\n\n\n\n\n\n\n\t\t\t      \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n");
-    printf("\n\t\t\t\t You have to log in first to access the admin panel.");
-    printf(ANSI_COLOR_BLUE"\n\n\t\t\t\t\t     Press any key to login.");
-    printf(ANSI_COLOR_RED"\n\n\t\t\t      \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
-    getch();
-    admin_login();
+    int z;
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb ADD PRODUCTS \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] Add Male Products");
+    printf("\n\t\t\t\t\t[2] Add Female Products");
+    printf("\n\t\t\t\t\t[3] Add Children Products");
+    printf("\n\t\t\t\t\t[4] Add Electronics Products");
+    printf("\n\t\t\t\t\t[5] Add Discounted Products");
+    printf("\n\t\t\t\t\t[6] <= Back");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        add_male();
+
+    case 2:
+        add_female();
+
+    case 3:
+        add_children();
+
+    case 4:
+        add_electronics();
+
+    case 5:
+        add_discount();
+
+    case 6:
+        admin_panel();
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+}
+add_male_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb ADD MALE PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+add_male()
+{
+    int index, valid;
+    char c;
+    int ID;
+    int a=0;
+    FILE *fp;
+    do
+    {
+        add_male_graphics();
+        fp = fopen("male.dat","a+");
+
+        if((fp = fopen("male.dat","a+"))!=NULL)
+        {
+I:
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Code: "ANSI_COLOR_RESET);
+            scanf("%d",&ID);
+            while(fscanf(fp,"%s %d %d", &st.productname, &st.price, &st.productid)!=EOF)
+            {
+                if(ID == st.productid)
+                {
+                    do
+                    {
+                        add_male_graphics();
+                        printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t   [*] THE PRODUCT CODE ALREADY EXIST.\n");
+                        printf(ANSI_COLOR_GREEN"\n\t\t\t\t   Press any key to continue...\n"ANSI_COLOR_RESET);
+                        getch();
+                        add_male_graphics();
+                        goto I;
+                    }
+                    while(ID =! st.productid);
+                }
+            }
+            st.productid = ID;
+        }
+
+        else
+        {
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Product Code: "ANSI_COLOR_RESET);
+            scanf("%d", &st.productid);
+        }
+
+        do
+        {
+            fflush(stdin);
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
+            gets(st.productname);
+            st.productname[0]=toupper(st.productname[0]);
+            for (index=0; index < strlen(st.productname); ++index)
+            {
+                if(isalpha(st.productname[index]))
+                    valid = 1;
+                else
+                {
+                    valid = 0;
+                    break;
+                }
+            }
+            if (!valid)
+            {
+                printf(ANSI_COLOR_RED"\nName contain invalid character. Please 'Enter' again"ANSI_COLOR_RESET);
+                getch();
+            }
+        }
+        while(!valid);
+
+
+        printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Price: "ANSI_COLOR_RESET);
+        scanf("%d",&st.price);
+
+        fp=fopen("male.dat","a");
+        fprintf(fp,"\n%s %d %d", st.productname, st.price, st.productid);
+        fclose(fp);
+        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\tPress 'Enter' to add more item or any other key to go back"ANSI_COLOR_RESET);
+    }
+    while((c = getch()) =='\r');
+    add();
+}
+add_female_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb ADD FEMALE PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+add_female()
+{
+    int index, valid;
+    char c;
+    int ID;
+    int a=0;
+    FILE *fp;
+    do
+    {
+        add_female_graphics();
+        fp = fopen("female.dat","a+");
+
+        if((fp = fopen("female.dat","a+"))!=NULL)
+        {
+I:
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Code: "ANSI_COLOR_RESET);
+            scanf("%d",&ID);
+            while(fscanf(fp,"%s %d %d", &st.productname, &st.price, &st.productid)!=EOF)
+            {
+                if(ID == st.productid)
+                {
+                    do
+                    {
+                        add_female_graphics();
+                        printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t   [*] THE PRODUCT CODE ALREADY EXIST.\n");
+                        printf(ANSI_COLOR_GREEN"\n\t\t\t\t   Press any key to continue...\n"ANSI_COLOR_RESET);
+                        getch();
+                        add_female_graphics();
+                        goto I;
+                    }
+                    while(ID =! st.productid);
+                }
+            }
+            st.productid = ID;
+        }
+
+        else
+        {
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Product Code: "ANSI_COLOR_RESET);
+            scanf("%d", &st.productid);
+        }
+
+        do
+        {
+            fflush(stdin);
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
+            gets(st.productname);
+            st.productname[0]=toupper(st.productname[0]);
+            for (index=0; index < strlen(st.productname); ++index)
+            {
+                if(isalpha(st.productname[index]))
+                    valid = 1;
+                else
+                {
+                    valid = 0;
+                    break;
+                }
+            }
+            if (!valid)
+            {
+                printf(ANSI_COLOR_RED"\nName contain invalid character. Please 'Enter' again"ANSI_COLOR_RESET);
+                getch();
+            }
+        }
+        while(!valid);
+
+
+        printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Price: "ANSI_COLOR_RESET);
+        scanf("%d",&st.price);
+
+        fp=fopen("female.dat","a");
+        fprintf(fp,"\n%s %d %d", st.productname, st.price, st.productid);
+        fclose(fp);
+        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\tPress 'Enter' to add more item or any other key to go back"ANSI_COLOR_RESET);
+    }
+    while((c = getch()) =='\r');
+    add();
+}
+add_child_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb ADD CHILDREN PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+add_children()
+{
+    int index, valid;
+    char c;
+    int ID;
+    int a=0;
+    FILE *fp;
+    do
+    {
+        add_child_graphics();
+        fp = fopen("child.dat","a+");
+
+        if((fp = fopen("child.dat","a+"))!=NULL)
+        {
+I:
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Code: "ANSI_COLOR_RESET);
+            scanf("%d",&ID);
+            while(fscanf(fp,"%s %d %d", &st.productname, &st.price, &st.productid)!=EOF)
+            {
+                if(ID == st.productid)
+                {
+                    do
+                    {
+                        add_child_graphics();
+                        printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t   [*] THE PRODUCT CODE ALREADY EXIST.\n");
+                        printf(ANSI_COLOR_GREEN"\n\t\t\t\t   Press any key to continue...\n"ANSI_COLOR_RESET);
+                        getch();
+                        add_child_graphics();
+                        goto I;
+                    }
+                    while(ID =! st.productid);
+                }
+            }
+            st.productid = ID;
+        }
+
+        else
+        {
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Product Code: "ANSI_COLOR_RESET);
+            scanf("%d", &st.productid);
+        }
+
+        do
+        {
+            fflush(stdin);
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
+            gets(st.productname);
+            st.productname[0]=toupper(st.productname[0]);
+            for (index=0; index < strlen(st.productname); ++index)
+            {
+                if(isalpha(st.productname[index]))
+                    valid = 1;
+                else
+                {
+                    valid = 0;
+                    break;
+                }
+            }
+            if (!valid)
+            {
+                printf(ANSI_COLOR_RED"\nName contain invalid character. Please 'Enter' again"ANSI_COLOR_RESET);
+                getch();
+            }
+        }
+        while(!valid);
+
+
+        printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Price: "ANSI_COLOR_RESET);
+        scanf("%d",&st.price);
+
+        fp=fopen("child.dat","a");
+        fprintf(fp,"\n%s %d %d", st.productname, st.price, st.productid);
+        fclose(fp);
+        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\tPress 'Enter' to add more item or any other key to go back"ANSI_COLOR_RESET);
+    }
+    while((c = getch()) =='\r');
+    add();
+}
+add_elec_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb ADD ELECTRONIC PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+add_electronics()
+{
+    int index, valid;
+    char c;
+    int ID;
+    int a=0;
+    FILE *fp;
+    do
+    {
+        add_elec_graphics();
+        fp = fopen("elec.dat","a+");
+
+        if((fp = fopen("elec.dat","a+"))!=NULL)
+        {
+I:
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Code: "ANSI_COLOR_RESET);
+            scanf("%d",&ID);
+            while(fscanf(fp,"%s %d %d", &st.productname, &st.price, &st.productid)!=EOF)
+            {
+                if(ID == st.productid)
+                {
+                    do
+                    {
+                        add_elec_graphics();
+                        printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t   [*] THE PRODUCT CODE ALREADY EXIST.\n");
+                        printf(ANSI_COLOR_GREEN"\n\t\t\t\t   Press any key to continue...\n"ANSI_COLOR_RESET);
+                        getch();
+                        add_elec_graphics();
+                        goto I;
+                    }
+                    while(ID =! st.productid);
+                }
+            }
+            st.productid = ID;
+        }
+
+        else
+        {
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Product Code: "ANSI_COLOR_RESET);
+            scanf("%d", &st.productid);
+        }
+
+        do
+        {
+            fflush(stdin);
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
+            gets(st.productname);
+            st.productname[0]=toupper(st.productname[0]);
+            for (index=0; index < strlen(st.productname); ++index)
+            {
+                if(isalpha(st.productname[index]))
+                    valid = 1;
+                else
+                {
+                    valid = 0;
+                    break;
+                }
+            }
+            if (!valid)
+            {
+                printf(ANSI_COLOR_RED"\nName contain invalid character. Please 'Enter' again"ANSI_COLOR_RESET);
+                getch();
+            }
+        }
+        while(!valid);
+
+
+        printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Price: "ANSI_COLOR_RESET);
+        scanf("%d",&st.price);
+
+        fp=fopen("elec.dat","a");
+        fprintf(fp,"\n%s %d %d", st.productname, st.price, st.productid);
+        fclose(fp);
+        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\tPress 'Enter' to add more item or any other key to go back"ANSI_COLOR_RESET);
+    }
+    while((c = getch()) =='\r');
+    add();
+}
+adddiscount_graphics()
+{
+    system("cls");
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb ADD DISCOUNT PRODUCT \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+}
+add_discount()
+{
+    int index, valid;
+    char c;
+    int ID;
+    int a=0;
+    FILE *fp;
+    do
+    {
+        adddiscount_graphics();
+        fp = fopen("discount.dat","a+");
+
+        if((fp = fopen("discount.dat","a+"))!=NULL)
+        {
+I:
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Code: "ANSI_COLOR_RESET);
+            scanf("%d",&ID);
+            while(fscanf(fp,"%d %s %d %d %d", &st.productid, &st.productname, &st.price, &st.discount, &st.after_discount)!=EOF)
+            {
+                if(ID == st.productid)
+                {
+                    do
+                    {
+                        adddiscount_graphics();
+                        printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t   [*] THE PRODUCT CODE ALREADY EXIST.\n");
+                        printf(ANSI_COLOR_GREEN"\n\t\t\t\t   Press any key to continue...\n"ANSI_COLOR_RESET);
+                        getch();
+                        adddiscount_graphics();
+                        goto I;
+                    }
+                    while(ID =! st.productid);
+                }
+            }
+            st.productid = ID;
+        }
+
+        else
+        {
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Product Code: "ANSI_COLOR_RESET);
+            scanf("%d", &st.productid);
+        }
+
+        do
+        {
+            fflush(stdin);
+            printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
+            gets(st.productname);
+            st.productname[0]=toupper(st.productname[0]);
+            for (index=0; index < strlen(st.productname); ++index)
+            {
+                if(isalpha(st.productname[index]))
+                    valid = 1;
+                else
+                {
+                    valid = 0;
+                    break;
+                }
+            }
+            if (!valid)
+            {
+                printf(ANSI_COLOR_RED"\nName contain invalid character. Please 'Enter' again"ANSI_COLOR_RESET);
+                getch();
+            }
+        }
+        while(!valid);
+
+
+        printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Original Price: "ANSI_COLOR_RESET);
+        scanf("%d",&st.price);
+
+        printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Discount Percentage: "ANSI_COLOR_RESET);
+        scanf("%d",&st.discount);
+        int sum;
+
+        sum = (st.discount*st.price)/100;
+
+        st.after_discount = (st.price - sum);
+
+
+        fp=fopen("discount.dat","a");
+        fprintf(fp,"\n%d %s %d %d %d", st.productid, st.productname, st.price, st.discount, st.after_discount);
+        fclose(fp);
+        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\tPress 'Enter' to add more item or any other key to go to admin panel"ANSI_COLOR_RESET);
+    }
+    while((c = getch()) =='\r');
+    admin_panel();
 }
 
 /////////////////////////////////////////////////// Invoice //////////////////////////////////////////////////////////
@@ -787,6 +2274,7 @@ file()
     }
     fclose(fp);
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 payment()
@@ -1083,23 +2571,225 @@ cod()
 
 shop()
 {
-    item_view();
+    system("cls");
+    int z;
+    printf(ANSI_COLOR_YELLOW"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Shop Option \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] Clothing & Accessories");
+    printf("\n\t\t\t\t\t[2] Electronics");
+    printf("\n\t\t\t\t\t[3] ");
+    printf(ANSI_COLOR_RED"Discounted Products!!"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[4] <= Back");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        clothing();
+
+    case 2:
+        electronics();
+
+    case 3:
+        discounts();
+
+    case 4:
+        menu();
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+}
+
+discounts()
+{
+    item_view_discount();
+    printf(ANSI_COLOR_GREEN"\n\n\t\t[*] Enter '0' to back"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_RED"\n\n\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Discounts \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
     FILE *buy;
     long int size = sizeof(st);
-    buy = fopen("product.dat","r+");
     int id, z;
-    printf("\n\t\t\t\tEnter Item's Code to buy: ");
-    scanf("%d",&id);
-    printf("\n\t\t\t\tEnter how many: ");
-    scanf("%d",&z);
-    fflush(stdin);
-    while(fscanf(buy,"%s %i %i\n", &st.productname, &st.price, &st.productid)!=EOF)
+
+    printf("\n\n\t\tEnter item's code to buy: ");
+    scanf("%d", &id);
+
+    if(id == 0)
     {
-        if(id == st.productid)
+        shop();
+    }
+
+    else
+    {
+        buy = fopen("discount.dat","r+");
+        printf("\n\t\tEnter the ammount: ");
+        scanf("%d",&z);
+        fflush(stdin);
+        while(fscanf(buy,"%d %s %d %d %d", &st.productid, &st.productname, &st.price, &st.discount, &st.after_discount)!=EOF)
         {
+            if(id == st.productid)
+            {
+                invoice(st.productname, st.after_discount, z, st.productid);
+            }
+        }
+    }
+}
+electronics()
+{
+    elec_item_view();
+    FILE *buy;
+    long int size = sizeof(st);
+    int id, z;
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t[*] Enter '0' to back"ANSI_COLOR_RESET);
+    printf("\n\n\t\t\t\tEnter item's code to buy: ");
+    scanf("%d", &id);
 
-            invoice(st.productname, st.price, z, st.productid);
+    if(id == 0)
+    {
+        menu();
+    }
 
+    else
+    {
+        buy = fopen("elec.dat","r+");
+        printf("\n\t\t\t\tEnter the ammount: ");
+        scanf("%d",&z);
+        fflush(stdin);
+        while(fscanf(buy,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                invoice(st.productname, st.price, z, st.productid);
+            }
+        }
+    }
+}
+
+clothing()
+{
+    system("cls");
+    int z;
+    printf(ANSI_COLOR_BLUE"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Clothing & Accessories \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t\t[1] Male Products");
+    printf("\n\t\t\t\t\t\t[2] Female Products");
+    printf("\n\t\t\t\t\t\t[3] Children Products");
+    printf("\n\t\t\t\t\t\t[4] <= Back");
+    printf("\n\t\t\t\t_______________________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        male();
+
+    case 2:
+        female();
+
+    case 3:
+        children();
+
+    case 4:
+        shop();
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        admin_panel();
+    }
+}
+
+male()
+{
+    male_item_view();
+    FILE *buy;
+    long int size = sizeof(st);
+    int id, z;
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t[*] Enter '0' to back"ANSI_COLOR_RESET);
+    printf("\n\n\t\t\t\tEnter item's code to buy: ");
+    scanf("%d", &id);
+
+    if(id == 0)
+    {
+        menu();
+    }
+
+    else
+    {
+        buy = fopen("male.dat","r+");
+        printf("\n\t\t\t\tEnter the ammount: ");
+        scanf("%d",&z);
+        fflush(stdin);
+        while(fscanf(buy,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                invoice(st.productname, st.price, z, st.productid);
+            }
+        }
+    }
+}
+female()
+{
+    female_item_view();
+    FILE *buy;
+    long int size = sizeof(st);
+    int id, z;
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t[*] Enter '0' to back"ANSI_COLOR_RESET);
+    printf("\n\n\t\t\t\tEnter item's code to buy: ");
+    scanf("%d", &id);
+
+    if(id == 0)
+    {
+        menu();
+    }
+
+    else
+    {
+        buy = fopen("female.dat","r+");
+        printf("\n\t\t\t\tEnter the ammount: ");
+        scanf("%d",&z);
+        fflush(stdin);
+        while(fscanf(buy,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                invoice(st.productname, st.price, z, st.productid);
+            }
+        }
+    }
+}
+children()
+{
+    child_item_view();
+    FILE *buy;
+    long int size = sizeof(st);
+    int id, z;
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t[*] Enter '0' to back"ANSI_COLOR_RESET);
+    printf("\n\n\t\t\t\tEnter item's code to buy: ");
+    scanf("%d", &id);
+
+    if(id == 0)
+    {
+        menu();
+    }
+
+    else
+    {
+        buy = fopen("child.dat","r+");
+        printf("\n\t\t\t\tEnter the ammount: ");
+        scanf("%d",&z);
+        fflush(stdin);
+        while(fscanf(buy,"%s %d %d\n", &st.productname, &st.price, &st.productid)!=EOF)
+        {
+            if(id == st.productid)
+            {
+                invoice(st.productname, st.price, z, st.productid);
+            }
         }
     }
 }
