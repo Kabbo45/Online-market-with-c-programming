@@ -65,7 +65,7 @@ registration()
     char name[200], email[100], usrname[100], address[200], pass[100], pass2[100];
     int mobile;
     FILE *fptr;
-    fptr = fopen("regestration.txt","w");
+    fptr = fopen("registration.txt","w");
     printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t====================\n");
     printf("\t\t\t\t\t||  Registration  ||\n");
     printf("\t\t\t\t\t====================\n\n"ANSI_COLOR_RESET);
@@ -101,21 +101,20 @@ registration()
     printf("\t\t\t\t---------------------\n");
     printf("\t\t\t\t=> ");
     scanf("%[^\n]s", &pass2);
-    int result = strcmp(pass, pass2);
+    int result;
+    result = strcmp(pass, pass2);
     if(result == 0)
     {
-        fprintf(fptr,"Registration Details \n-------------------- \nFull Name: %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", name, mobile, address, email, usrname, pass);
+        fprintf(fptr,"\t\t\t\tFull Name: %s\n\t\t\t\tMobile Number: +880%d\n\t\t\t\tAddress: %s\n\t\t\t\tE-mail: %s\n", name, mobile, address, email);
         fclose(fptr);
-        FILE *edit;
-        edit = fopen("edit.txt", "w");
-        fprintf(edit, "%s\n%d\n%s\n%s\n", name, mobile, address, email);
-        fclose(edit);
+
         FILE *username;
-        username = fopen("username.txt", "w");
+        username = fopen("username.dat", "w");
         fprintf(username, "%s", usrname);
         fclose(username);
+
         FILE *passx;
-        passx = fopen("password.txt", "w");
+        passx = fopen("password.dat", "w");
         fprintf(passx, "%s", pass);
         fclose(passx);
         signin();
@@ -125,7 +124,8 @@ registration()
     {
         do
         {
-            printf(ANSI_COLOR_RED"\a\n\t\t\t\tOOPS! You're password didn't match\n"ANSI_COLOR_RESET);
+            fflush(stdin);
+            printf(ANSI_COLOR_RED"\a\n\t\t\t\tOOPS! Your password didn't match\n"ANSI_COLOR_RESET);
             printf("\n\t\t\t\tChoose your password again\n");
             printf("\t\t\t\t--------------------------\n");
             printf("\t\t\t\t=> ");
@@ -134,18 +134,22 @@ registration()
             printf("\t\t\t\t---------------------\n");
             printf("\t\t\t\t=> ");
             scanf("%s", &pass2);
+            result = strcmp(pass, pass2);
         }
         while (result == 0);
-        fprintf(fptr,"Registration Details \n-------------------- \nFull Name: %s %s %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", name, mobile, address, email, usrname, pass);
+
+        fprintf(fptr,"Full Name: %s %s %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", name, mobile, address, email, usrname, pass);
         fclose(fptr);
+
         FILE *username;
-        username = fopen("username.txt", "w");
+        username = fopen("username.dat", "w");
         fprintf(username, "%s", usrname);
         fclose(username);
         FILE *passx;
-        passx = fopen("password.txt", "w");
+        passx = fopen("password.dat", "w");
         fprintf(passx, "%s", pass);
         fclose(passx);
+
         signin();
     }
 }
@@ -168,10 +172,10 @@ signin()
     printf("\t\t\t\t-------------------\n");
     printf("\t\t\t\t=> ");
     FILE *username;
-    username = fopen("username.txt", "r");
+    username = fopen("username.dat", "r");
     fscanf(username, "%s", &usr);
     FILE *passx;
-    passx = fopen("password.txt", "r");
+    passx = fopen("password.dat", "r");
     fscanf(passx, "%s", &passc);
     int length;
     length = strlen(passc);
@@ -254,7 +258,7 @@ credit()
     printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n");
     printf("\n\t\t\tTeam Member - 01  |  Tunazzinur Rahman Kabbo  |  ID: 19202103268\n");
     printf(ANSI_COLOR_MAGENTA"\n\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n\n");
-    printf("\t\t\tTeam Member - 02  |  MD. Naimul Rahman        |  ID: 19202103274\n");
+    printf("\t\t\tTeam Member - 02  |  MD. Zobayer Hasan Nayem  |  ID: 19202103274\n");
     printf(ANSI_COLOR_GREEN"\n\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n\n");
     printf("\t\t\tTeam Member - 03  |  MD. Mehedi Hasan         |  ID: 19202103264\n");
     printf(ANSI_COLOR_RED"\n\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
@@ -295,12 +299,12 @@ login_successful()
 login_error()
 {
     system("cls");
-    printf(ANSI_COLOR_RED"\a\n\n\n\n\n\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb                       \xdb");
-    printf("\n\t\t\t\t\t\xdb   WRONG CREDENTIALS   \xdb");
-    printf("\n\t\t\t\t\t\xdb       Try Again       \xdb");
-    printf("\n\t\t\t\t\t\xdb                       \xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_RED"\a\n\n\n\n\n\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
+    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
+    printf("\n\t\t\t\t\t\xdb\xdb   Wrong Credentials   \xdb\xdb");
+    printf("\n\t\t\t\t\t\xdb\xdb     [*]Try Again      \xdb\xdb");
+    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
+    printf("\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb"ANSI_COLOR_RESET);
     printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to continue ..."ANSI_COLOR_RESET);
     getch();
 }
@@ -351,9 +355,9 @@ menu()
 
     case 5:
         system("cls");
-        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
-        printf("\t\t\t\t\tThank You For Using Our Shopping System.\n");
-        printf(ANSI_COLOR_GREEN"\t\t\t\t\t========================================\n"ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t=========================================\n"ANSI_COLOR_RESET);
+        printf("\t\t\t\t\t Thank You For Using Our Shopping System\n");
+        printf(ANSI_COLOR_GREEN"\t\t\t\t\t=========================================\n\n\n\n\n\n\n\n\n\n\n\n\n\n"ANSI_COLOR_RESET);
         exit(1);
         break;
 
@@ -420,7 +424,7 @@ sign_option()
 
     case 2:
         loadingBar();
-        signin();
+        edit_profile();
         break;
 
     case 3:
@@ -430,17 +434,204 @@ sign_option()
 
     case 4:
         user_panel();
+        break;
 
     case 5:
         exit(0);
+        break;
 
     default:
         printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
         getch();
         sign_option();
     }
-
 }
+
+
+edit_profile()
+{
+    system("cls");
+    int z;
+    printf(ANSI_COLOR_MAGENTA"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Edit Profile \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf("\n\t\t\t\t\t[1] Edit User Details");
+    printf("\n\t\t\t\t\t[2] Edit User Name");
+    printf("\n\t\t\t\t\t[3] Edit Password");
+    printf("\n\t\t\t\t\t[4] Back");
+    printf("\n\t\t\t\t\t[5] Exit!");
+    printf("\n\t\t\t\t____________________________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        user_details();
+        break;
+
+    case 2:
+        edit_username();
+        break;
+
+    case 3:
+        edit_password();
+        break;
+
+    case 4:
+        sign_option();
+        break;
+
+    case 5:
+        exit(0);
+        break;
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        sign_option();
+    }
+}
+
+
+user_details()
+{
+    system("cls");
+    FILE * fPtr;
+    char ch;
+    fPtr = fopen("registration.txt", "r");
+    printf(ANSI_COLOR_MAGENTA"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Edit User Details \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN" ");
+    printf("\n\t\t\t\tYour User Data:");
+    printf("\n\t\t\t\t===============\n");
+    do
+    {
+        ch = fgetc(fPtr);
+        putchar(ch);
+    }
+    while(ch != EOF);
+    fclose(fPtr);
+    printf(" "ANSI_COLOR_RESET);
+    int z;
+    printf("\n\n\t\t\t\t[1] Edit details");
+    printf("\n\t\t\t\t[2] Back");
+    printf("\n\t\t\t\t__________________________\n\n");
+    printf("\t\t\t\tEnter your choice: ");
+    scanf("%d", &z);
+
+    switch(z)
+    {
+
+    case 1:
+        edit_details();
+        break;
+
+    case 2:
+        edit_profile();
+        break;
+
+    default:
+        printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
+        getch();
+        sign_option();
+    }
+}
+
+
+edit_details()
+{
+    system("cls");
+    char name[200], email[100], address[200];
+    int mobile;
+    FILE *fptr;
+    fptr = fopen("registration.txt","w");
+    printf(ANSI_COLOR_MAGENTA"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Edit User Details \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n\n"ANSI_COLOR_RESET);
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter your full name\n");
+    printf("\t\t\t\t--------------------\n");
+    printf("\t\t\t\t=> ");
+    scanf("%[^\n]s", name);
+    printf("\n\t\t\t\tEnter your mobile number\n");
+    printf("\t\t\t\t------------------------\n");
+    printf("\t\t\t\t=> ");
+    scanf("%d", &mobile);
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter your address\n");
+    printf("\t\t\t\t------------------\n");
+    printf("\t\t\t\t=> ");
+    scanf("%[^\n]s", address);
+    printf("\n\t\t\t\tEnter your e-mail\n");
+    printf("\t\t\t\t-----------------\n");
+    printf("\t\t\t\t=> ");
+    scanf("%s", &email);
+    fprintf(fptr,"\t\t\t\tFull Name: %s\n\t\t\t\tMobile Number: +880%d\n\t\t\t\tDistrict Name: %s\n\t\t\t\tE-mail: %s\n", name, mobile, address, email);
+    fclose(fptr);
+    printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t=====================================");
+    printf("\n\t\t\t\t\t[ User details updated successfully ]");
+    printf("\n\t\t\t\t\t=====================================");
+    printf("\n\n\t\t\t\t\tEnter any key to go back..."ANSI_COLOR_RESET);
+    getch();
+    edit_profile();
+}
+
+
+edit_username()
+{
+    system("cls");
+    printf(ANSI_COLOR_MAGENTA"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Edit User Name \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    char usrname[100];
+    char newl[100];
+
+    FILE *username;
+    username = fopen("username.dat", "r");
+    fscanf(username, "%s", &usrname);
+    printf("\n\t\t\t\t\tYour old user name: ");
+    printf(ANSI_COLOR_RED"%s"ANSI_COLOR_RESET, usrname);
+    fclose(username);
+
+    FILE *newn;
+    newn = fopen("username.dat", "w");
+    printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\tEnter your new user name: "ANSI_COLOR_RESET);
+    scanf("%s", &newl);
+    fprintf(newn, "%s", newl);
+    fclose(newn);
+    printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t==================================");
+    printf("\n\t\t\t\t\t[ User name updated successfully ]");
+    printf("\n\t\t\t\t\t==================================");
+    printf("\n\n\t\t\t\t\tEnter any key to go back..."ANSI_COLOR_RESET);
+    getch();
+    edit_profile();
+}
+
+
+edit_password()
+{
+    system("cls");
+    printf(ANSI_COLOR_MAGENTA"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Edit Password \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
+    char passs[100];
+    char newl[100];
+
+    FILE *pass;
+    pass = fopen("password.dat", "r");
+    fscanf(pass, "%s", &passs);
+    printf("\n\t\t\t\t\tYour old password: ");
+    printf(ANSI_COLOR_RED"%s"ANSI_COLOR_RESET, passs);
+    fclose(pass);
+
+    FILE *newn;
+    newn = fopen("password.dat", "w");
+    printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\tEnter your new password: "ANSI_COLOR_RESET);
+    scanf("%s", &newl);
+    fprintf(newn, "%s", newl);
+    fclose(newn);
+
+    printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t=================================");
+    printf("\n\t\t\t\t\t[ Password updated successfully ]");
+    printf("\n\t\t\t\t\t=================================");
+    printf("\n\n\t\t\t\t\tEnter any key to go back..."ANSI_COLOR_RESET);
+    getch();
+    edit_profile();
+}
+
 
 request()
 {
@@ -470,6 +661,7 @@ request()
     getch();
     sign_option();
 }
+
 
 user_panel()
 {
@@ -516,6 +708,7 @@ user_panel()
     }
 
 }
+
 /////////////////////////////////////////////////// Admin ////////////////////////////////////////////////////////////
 
 admin()
@@ -528,6 +721,8 @@ admin()
     getch();
     admin_login();
 }
+
+
 admin_login()
 {
     system("cls");
@@ -563,6 +758,8 @@ admin_login()
     }
     main();
 }
+
+
 admin_panel()
 {
     system("cls");
@@ -2689,7 +2886,7 @@ shop()
         discounts();
 
     case 4:
-        menu();
+        user_panel();
 
     default:
         printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
