@@ -106,6 +106,10 @@ registration()
     {
         fprintf(fptr,"Registration Details \n-------------------- \nFull Name: %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", name, mobile, address, email, usrname, pass);
         fclose(fptr);
+        FILE *edit;
+        edit = fopen("edit.txt", "w");
+        fprintf(edit, "%s\n%d\n%s\n%s\n", name, mobile, address, email);
+        fclose(edit);
         FILE *username;
         username = fopen("username.txt", "w");
         fprintf(username, "%s", usrname);
@@ -291,13 +295,12 @@ login_successful()
 login_error()
 {
     system("cls");
-    printf(ANSI_COLOR_RED"\a\n\n\n\n\n\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb   WRONG CREDENTIALS   \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb       Try Again!!     \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_RED"\a\n\n\n\n\n\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
+    printf("\n\t\t\t\t\t\xdb                       \xdb");
+    printf("\n\t\t\t\t\t\xdb   WRONG CREDENTIALS   \xdb");
+    printf("\n\t\t\t\t\t\xdb       Try Again       \xdb");
+    printf("\n\t\t\t\t\t\xdb                       \xdb");
+    printf("\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb"ANSI_COLOR_RESET);
     printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to continue ..."ANSI_COLOR_RESET);
     getch();
 }
@@ -367,18 +370,29 @@ feedback()
     char name[500];
     char email[500];
     char str[500];
+    float s;
     FILE *fp;
-    fp = fopen("feedback.txt", "w");
+    fp = fopen("feedback.txt", "a");
     fflush(stdin);
-    printf("\n\t\t\t\tEnter Your Full Name: ");
+    printf("\n\t\t\t\tEnter your full name: ");
     scanf("%[^\n]s", name);
     fflush(stdin);
-    printf("\n\t\t\t\tEnter Your E-mail: ");
+    printf("\n\t\t\t\tEnter your e-mail: ");
     scanf("%[^\n]s", email);
     fflush(stdin);
-    printf("\n\t\t\t\tEnter Your E-mail: ");
+    printf("\n\t\t\t\tWrite your feedback: ");
     scanf("%[^\n]s", str);
-    fprintf(fp, "Name: %s\nE-mail: %s\nFeedback: %s", name, email, str);
+    printf("\n\t\t\t\tGive us stars (1 to 5): ");
+    scanf("%f", &s);
+    fprintf(fp, "\n\n\t\t\t\t==>\n\t\t\t\tName: %s\n\t\t\t\tE-mail: %s\n\t\t\t\tFeedback: %s\n\t\t\t\tStars: %d", name, email, str, s);
+    fclose(fp);
+    system("cls");
+    printf(ANSI_COLOR_RED "\n\n\n\n\t\t\t\t\t  =================================\n");
+    printf(ANSI_COLOR_RED  "\t\t\t\t\t  |~ Thank You For Your Feedback ~|\n");
+    printf(ANSI_COLOR_RED "\t\t\t\t\t  =================================\n" ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t     Press any key to go back" ANSI_COLOR_RESET);
+    getch();
+    menu();
 }
 
 
@@ -390,7 +404,7 @@ sign_option()
     printf("\n\t\t\t\t\t[1] Enter Shop");
     printf("\n\t\t\t\t\t[2] Edit Profile");
     printf("\n\t\t\t\t\t[3] Product Request");
-    printf("\n\t\t\t\t\t[4] <= Back");
+    printf("\n\t\t\t\t\t[4] Log Out");
     printf("\n\t\t\t\t\t[5] Exit!");
     printf("\n\t\t\t\t____________________________________________\n\n");
     printf("\t\t\t\tEnter your choice: ");
@@ -432,24 +446,28 @@ request()
 {
     system("cls");
     printf(ANSI_COLOR_BLUE"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Request Product \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
-    char str[300];
+    char name[500];
+    char email[500];
+    char str[500];
     FILE *fp;
-
-    if((fp = fopen("request.dat", "w"))==NULL)
-    {
-        printf("Cannot open file.\n");
-        exit(1);
-    }
-
-    do
-    {
-        printf("\n\t\t\t\t[*]Enter Your Requested Product Name & Details\n");
-        gets(str);
-        strcat(str, "\n");
-        fputs(str, fp);
-    }
-    while(*str!='\n');
-
+    fp = fopen("request.dat", "a");
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter your full name: ");
+    scanf("%[^\n]s", name);
+    fflush(stdin);
+    printf("\n\t\t\t\tEnter your e-mail: ");
+    scanf("%[^\n]s", email);
+    fflush(stdin);
+    printf("\n\t\t\t\tWrite your product request: ");
+    scanf("%[^\n]s", str);
+    fprintf(fp, "\n\n\t\t\t\t==>\n\t\t\t\tName: %s\n\t\t\t\tE-mail: %s\n\t\t\t\tProduct Request: %s", name, email, str);
+    fclose(fp);
+    system("cls");
+    printf(ANSI_COLOR_RED "\n\n\n\n\t\t\t\t\t  =========================\n");
+    printf(ANSI_COLOR_RED  "\t\t\t\t\t  |~ We got your request ~|\n");
+    printf(ANSI_COLOR_RED "\t\t\t\t\t  =========================\n" ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t  Press any key to go back" ANSI_COLOR_RESET);
+    getch();
     sign_option();
 }
 
@@ -459,9 +477,9 @@ user_panel()
     int z;
     printf(ANSI_COLOR_GREEN"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb User Panel \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\n"ANSI_COLOR_RESET);
     printf("\n\t\t\t\t\t[1] Registration");
-    printf("\n\t\t\t\t\t[2] Sign-in");
+    printf("\n\t\t\t\t\t[2] Sign In");
     printf("\n\t\t\t\t\t[3] Enter shop as a guest");
-    printf("\n\t\t\t\t\t[4] <= Back");
+    printf("\n\t\t\t\t\t[4] <== Back");
     printf("\n\t\t\t\t\t[5] Exit!");
     printf("\n\t\t\t\t____________________________________________\n\n");
     printf("\t\t\t\tEnter your choice: ");
@@ -554,8 +572,10 @@ admin_panel()
     printf("\n\t\t\t\t\t[2] Delete Items");
     printf("\n\t\t\t\t\t[3] View Items");
     printf("\n\t\t\t\t\t[4] Edit Items");
-    printf("\n\t\t\t\t\t[5] <= Back");
-    printf("\n\t\t\t\t\t[6] Exit!");
+    printf("\n\t\t\t\t\t[5] Feedbacks");
+    printf("\n\t\t\t\t\t[6] Product Requests");
+    printf("\n\t\t\t\t\t[7] <= Back");
+    printf("\n\t\t\t\t\t[8] Exit!");
     printf("\n\t\t\t\t____________________________________________\n\n");
     printf("\t\t\t\tEnter your choice: ");
     scanf("%d", &z);
@@ -576,9 +596,15 @@ admin_panel()
         edits();
 
     case 5:
-        menu();
+        feedbacks();
 
     case 6:
+        requests();
+
+    case 7:
+        menu();
+
+    case 8:
         exit(0);
 
     default:
@@ -588,6 +614,68 @@ admin_panel()
     }
 
 
+}
+
+
+
+///////////////////////////////////////////////////////////////////// --------- Read Feedbacks --------- /////////////////////////////////////////////////////////////////////////////////
+void requests()
+{
+    system("cls");
+    FILE * fPtr;
+    char ch;
+    fPtr = fopen("request.dat", "r");
+    if(fPtr == NULL)
+    {
+        printf("Unable to open file.\n");
+        printf("Please check whether file exists and you have read privilege.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Product Requests \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN" ");
+    do
+    {
+        ch = fgetc(fPtr);
+        putchar(ch);
+    }
+    while(ch != EOF);
+
+    fclose(fPtr);
+
+    printf(ANSI_COLOR_YELLOW"\n\n\n\t\t\t\t\tPress any key to go back\n"ANSI_COLOR_RESET);
+    getch();
+    admin_panel();
+}
+
+
+void feedbacks()
+{
+    system("cls");
+    FILE * fPtr;
+    char ch;
+    fPtr = fopen("feedback.txt", "r");
+    if(fPtr == NULL)
+    {
+        printf("Unable to open file.\n");
+        printf("Please check whether file exists and you have read privilege.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf(ANSI_COLOR_RED"\n\n\n\n\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb Feedbacks \xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN" ");
+    do
+    {
+        ch = fgetc(fPtr);
+        putchar(ch);
+    }
+    while(ch != EOF);
+
+    fclose(fPtr);
+
+    printf(ANSI_COLOR_YELLOW"\n\n\n\t\t\t\t\tPress any key to go back\n"ANSI_COLOR_RESET);
+    getch();
+    admin_panel();
 }
 
 /////////////////////////////////////////////////////////////////////////// ---------- Edit ----------- ///////////////////////////////////////////////////////////////////////////////////
@@ -1858,7 +1946,8 @@ I:
         {
             fflush(stdin);
             printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
-            gets(st.productname);
+            fflush(stdin);
+            scanf("%[^\n]s", &st.productname);
             st.productname[0]=toupper(st.productname[0]);
             for (index=0; index < strlen(st.productname); ++index)
             {
@@ -1941,7 +2030,8 @@ I:
         {
             fflush(stdin);
             printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
-            gets(st.productname);
+            fflush(stdin);
+            scanf("%[^\n]s", &st.productname);
             st.productname[0]=toupper(st.productname[0]);
             for (index=0; index < strlen(st.productname); ++index)
             {
@@ -2024,7 +2114,8 @@ I:
         {
             fflush(stdin);
             printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
-            gets(st.productname);
+            fflush(stdin);
+            scanf("%[^\n]s", &st.productname);
             st.productname[0]=toupper(st.productname[0]);
             for (index=0; index < strlen(st.productname); ++index)
             {
@@ -2107,7 +2198,8 @@ I:
         {
             fflush(stdin);
             printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
-            gets(st.productname);
+            fflush(stdin);
+            scanf("%[^\n]s", &st.productname);
             st.productname[0]=toupper(st.productname[0]);
             for (index=0; index < strlen(st.productname); ++index)
             {
@@ -2190,7 +2282,8 @@ I:
         {
             fflush(stdin);
             printf(ANSI_COLOR_YELLOW"\n\t\t\t\tEnter Item Name: "ANSI_COLOR_RESET);
-            gets(st.productname);
+            fflush(stdin);
+            scanf("%[^\n]s", &st.productname);
             st.productname[0]=toupper(st.productname[0]);
             for (index=0; index < strlen(st.productname); ++index)
             {
@@ -2649,7 +2742,7 @@ electronics()
 
     if(id == 0)
     {
-        menu();
+        shop();
     }
 
     else
@@ -2715,7 +2808,7 @@ male()
 
     if(id == 0)
     {
-        menu();
+        clothing();
     }
 
     else
@@ -2745,7 +2838,7 @@ female()
 
     if(id == 0)
     {
-        menu();
+        clothing();
     }
 
     else
@@ -2775,7 +2868,7 @@ children()
 
     if(id == 0)
     {
-        menu();
+        clothing();
     }
 
     else
@@ -2798,7 +2891,6 @@ children()
 
 int main()
 {
-
     graphics();
     Sleep(300);
     menu();
