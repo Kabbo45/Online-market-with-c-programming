@@ -221,10 +221,6 @@ signin()
     }
 }
 
-////////////////////////////////////////////////////// Thanks //////////////////////////////////////////////
-
-
-
 //////////////////////////////////////////////////// Graphics ////////////////////////////////////////////////
 
 graphics()
@@ -277,20 +273,6 @@ credit()
 
 }
 
-////////////////////////////////////////////////// Wrong Choice /////////////////////////////////////////////////////
-
-wrong()
-{
-    system("cls");
-    printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t=============\n"ANSI_COLOR_RESET);
-    printf("\a\t\t\t\t\tWrong Choice!\n");
-    printf(ANSI_COLOR_GREEN"\t\t\t\t\t=============\n"ANSI_COLOR_RESET);
-    getch();
-    menu();
-}
-
-///////////////////////////////////////////// Login Graphics /////////////////////////////////////////////////
-
 
 /////////////////////////////////////////////////// Menu /////////////////////////////////////////////////////////////
 
@@ -337,15 +319,13 @@ menu()
         break;
 
     case 5:
-        system("cls");
-        printf(ANSI_COLOR_YELLOW"\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t=========================================\n"ANSI_COLOR_RESET);
-        printf("\t\t\t\t\t Thank You For Using Our Shopping System\n");
-        printf(ANSI_COLOR_GREEN"\t\t\t\t\t=========================================\n\n\n\n\n\n\n\n\n\n\n\n\n\n"ANSI_COLOR_RESET);
+        MessageBox(NULL,"  Thank You For Using Our Service\n  Stay With Us", "Exit", MB_ICONEXCLAMATION | MB_OK);
         exit(1);
         break;
 
     default:
-        wrong();
+        MessageBox(NULL,"  Wrong Input\n  Compile Again", "Error", MB_ICONWARNING | MB_OK);
+        exit(1);
         break;
     }
 }
@@ -1483,7 +1463,7 @@ male_item_view()
 read_male()
 {
     male_item_view();
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to back"ANSI_COLOR_RESET);
     getch();
     read();
 }
@@ -1542,7 +1522,7 @@ female_item_view()
 read_female()
 {
     female_item_view();
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to back"ANSI_COLOR_RESET);
     getch();
     read();
 }
@@ -1601,7 +1581,7 @@ child_item_view()
 read_children()
 {
     child_item_view();
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to back"ANSI_COLOR_RESET);
     getch();
     read();
 }
@@ -1660,7 +1640,7 @@ elec_item_view()
 read_electronics()
 {
     elec_item_view();
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go to Main Menu!"ANSI_COLOR_RESET);
+    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to go back"ANSI_COLOR_RESET);
     getch();
     read();
 }
@@ -2854,7 +2834,7 @@ shop()
         discounts();
 
     case 4:
-        user_panel();
+        sign_option();
 
     default:
         printf(ANSI_COLOR_RED"\n\t\t\t\t[*]Invalid Choice. Press any key to continue..."ANSI_COLOR_RESET);
