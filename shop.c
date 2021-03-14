@@ -64,8 +64,6 @@ registration()
     system("cls");
     char name[200], email[100], usrname[100], address[200], pass[100], pass2[100];
     int mobile;
-    FILE *fptr;
-    fptr = fopen("registration.txt","w");
     printf(ANSI_COLOR_YELLOW"\n\n\t\t\t\t\t====================\n");
     printf("\t\t\t\t\t||  Registration  ||\n");
     printf("\t\t\t\t\t====================\n\n"ANSI_COLOR_RESET);
@@ -105,6 +103,8 @@ registration()
     result = strcmp(pass, pass2);
     if(result == 0)
     {
+        FILE *fptr;
+        fptr = fopen("registration.txt","w");
         fprintf(fptr,"\t\t\t\tFull Name: %s\n\t\t\t\tMobile Number: +880%d\n\t\t\t\tAddress: %s\n\t\t\t\tE-mail: %s\n", name, mobile, address, email);
         fclose(fptr);
 
@@ -117,41 +117,52 @@ registration()
         passx = fopen("password.dat", "w");
         fprintf(passx, "%s", pass);
         fclose(passx);
+        MessageBox(NULL,"  Registration Successful\n  Thank You", "Registration", MB_ICONINFORMATION | MB_OK);
         signin();
     }
 
     else
     {
-        do
-        {
-            fflush(stdin);
-            printf(ANSI_COLOR_RED"\a\n\t\t\t\tOOPS! Your password didn't match\n"ANSI_COLOR_RESET);
-            printf("\n\t\t\t\tChoose your password again\n");
-            printf("\t\t\t\t--------------------------\n");
-            printf("\t\t\t\t=> ");
-            scanf("%s", &pass);
-            printf("\n\t\t\t\tConfirm your password\n");
-            printf("\t\t\t\t---------------------\n");
-            printf("\t\t\t\t=> ");
-            scanf("%s", &pass2);
-            result = strcmp(pass, pass2);
-        }
-        while (result == 0);
 
-        fprintf(fptr,"Full Name: %s %s %s \nMobile Number: +880%d \nDistrict Name: %s \nE-mail: %s \nUsername: %s \nPassword: %s \n", name, mobile, address, email, usrname, pass);
-        fclose(fptr);
-
-        FILE *username;
-        username = fopen("username.dat", "w");
-        fprintf(username, "%s", usrname);
-        fclose(username);
-        FILE *passx;
-        passx = fopen("password.dat", "w");
-        fprintf(passx, "%s", pass);
-        fclose(passx);
-
-        signin();
+        try_reg(name, mobile, address, email, usrname);
     }
+}
+
+try_reg(char name[200], int mobile, char address[200], char email[100], char usrname[100])
+{
+    char pass[100];
+    char pass2[100];
+    int res;
+    res = strcmp(pass, pass2);
+    do
+    {
+        fflush(stdin);
+        MessageBox(NULL,"  Your Password didn't match\n  Retry", "Registration", MB_ICONWARNING | MB_OK);
+        printf("\n\t\t\t\tChoose your password again\n");
+        printf("\t\t\t\t--------------------------\n");
+        printf("\t\t\t\t=> ");
+        scanf("%s", &pass);
+        printf("\n\t\t\t\tConfirm your password\n");
+        printf("\t\t\t\t---------------------\n");
+        printf("\t\t\t\t=> ");
+        scanf("%s", &pass2);
+    }
+    while (res == 0);
+    FILE *fptr;
+    fptr = fopen("registration.txt","w");
+    fprintf(fptr,"\t\t\t\tFull Name: %s\n\t\t\t\tMobile Number: +880%d\n\t\t\t\tAddress: %s\n\t\t\t\tE-mail: %s\n", name, mobile, address, email);
+    fclose(fptr);
+
+    FILE *username;
+    username = fopen("username.dat", "w");
+    fprintf(username, "%s", usrname);
+    fclose(username);
+    FILE *passx;
+    passx = fopen("password.dat", "w");
+    fprintf(passx, "%s", pass);
+    fclose(passx);
+    MessageBox(NULL,"  Registration Successful\n  Thank You", "Registration", MB_ICONINFORMATION | MB_OK);
+    signin();
 }
 
 ///////////////////////////////////////////////// Sign In /////////////////////////////////////////////////////////////
@@ -185,37 +196,34 @@ signin()
         printf("*");
     }
     password[i]='\0';
-    printf(ANSI_COLOR_RED"\n\n\t\t\t\tPress any key to continue..."ANSI_COLOR_RESET);
-    getch();
+
     int users = strcmp(usr, user);
     int passes = strcmp(passc, password);
     if((users == 0)&&(passes == 0))
     {
-        login_successful();
+        MessageBox(0, "  Log In Successful", "Log In", MB_ICONINFORMATION | MB_OK);
         sign_option();
     }
 
     else
     {
-        login_error();
-        signin();
+        int msgboxID = MessageBox(NULL,"  Wrong Credentials\n  Do you want to try again?", "Log In", MB_ICONWARNING | MB_RETRYCANCEL);
+        switch (msgboxID)
+        {
+        case IDRETRY:
+            signin();
+            break;
+
+        case IDCANCEL:
+            user_panel();
+            break;
+        }
     }
 }
 
 ////////////////////////////////////////////////////// Thanks //////////////////////////////////////////////
 
-thanks()
-{
 
-    {
-        printf(ANSI_COLOR_RED "\n\n\n\n\t\t\t\t\t\t  ===============\n");
-        printf(ANSI_COLOR_RED  "\t\t\t\t\t\t  |~ Thank You ~|\n");
-        printf(ANSI_COLOR_RED "\t\t\t\t\t\t  ===============\n" ANSI_COLOR_RESET);
-        printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to continue shopping..." ANSI_COLOR_RESET);
-    }
-    getch();
-    shop();
-}
 
 //////////////////////////////////////////////////// Graphics ////////////////////////////////////////////////
 
@@ -283,31 +291,6 @@ wrong()
 
 ///////////////////////////////////////////// Login Graphics /////////////////////////////////////////////////
 
-login_successful()
-{
-    system("cls");
-    printf(ANSI_COLOR_GREEN"\n\n\n\n\n\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb    Login Successful   \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
-    printf("\n\n\t\t\t\t\tPress any key to continue ..."ANSI_COLOR_RESET);
-    getch();
-}
-
-
-login_error()
-{
-    system("cls");
-    printf(ANSI_COLOR_RED"\a\n\n\n\n\n\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb   Wrong Credentials   \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb     [*]Try Again      \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb                       \xdb\xdb");
-    printf("\n\t\t\t\t\t\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb\xdb"ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\tPress any key to continue ..."ANSI_COLOR_RESET);
-    getch();
-}
 
 /////////////////////////////////////////////////// Menu /////////////////////////////////////////////////////////////
 
@@ -390,12 +373,7 @@ feedback()
     scanf("%f", &s);
     fprintf(fp, "\n\n\t\t\t\t==>\n\t\t\t\tName: %s\n\t\t\t\tE-mail: %s\n\t\t\t\tFeedback: %s\n\t\t\t\tStars: %d", name, email, str, s);
     fclose(fp);
-    system("cls");
-    printf(ANSI_COLOR_RED "\n\n\n\n\t\t\t\t\t  =================================\n");
-    printf(ANSI_COLOR_RED  "\t\t\t\t\t  |~ Thank You For Your Feedback ~|\n");
-    printf(ANSI_COLOR_RED "\t\t\t\t\t  =================================\n" ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t     Press any key to go back" ANSI_COLOR_RESET);
-    getch();
+    MessageBox(0, "  We have got your feedback\n  Thank You", "Feedback", MB_ICONINFORMATION | MB_OK);
     menu();
 }
 
@@ -565,11 +543,7 @@ edit_details()
     scanf("%s", &email);
     fprintf(fptr,"\t\t\t\tFull Name: %s\n\t\t\t\tMobile Number: +880%d\n\t\t\t\tDistrict Name: %s\n\t\t\t\tE-mail: %s\n", name, mobile, address, email);
     fclose(fptr);
-    printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t=====================================");
-    printf("\n\t\t\t\t\t[ User details updated successfully ]");
-    printf("\n\t\t\t\t\t=====================================");
-    printf("\n\n\t\t\t\t\tEnter any key to go back..."ANSI_COLOR_RESET);
-    getch();
+    MessageBox(0, "  User Details Updated Successfully", "User Details Update", MB_ICONINFORMATION | MB_OK);
     edit_profile();
 }
 
@@ -594,11 +568,7 @@ edit_username()
     scanf("%s", &newl);
     fprintf(newn, "%s", newl);
     fclose(newn);
-    printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t==================================");
-    printf("\n\t\t\t\t\t[ User name updated successfully ]");
-    printf("\n\t\t\t\t\t==================================");
-    printf("\n\n\t\t\t\t\tEnter any key to go back..."ANSI_COLOR_RESET);
-    getch();
+    MessageBox(0, "  User Name Updated Successfully", "User Name Update", MB_ICONINFORMATION | MB_OK);
     edit_profile();
 }
 
@@ -624,11 +594,7 @@ edit_password()
     fprintf(newn, "%s", newl);
     fclose(newn);
 
-    printf(ANSI_COLOR_GREEN"\n\n\n\t\t\t\t\t=================================");
-    printf("\n\t\t\t\t\t[ Password updated successfully ]");
-    printf("\n\t\t\t\t\t=================================");
-    printf("\n\n\t\t\t\t\tEnter any key to go back..."ANSI_COLOR_RESET);
-    getch();
+    MessageBox(0, "  Password Updated Successfully", "Password Update", MB_ICONINFORMATION | MB_OK);
     edit_profile();
 }
 
@@ -653,12 +619,7 @@ request()
     scanf("%[^\n]s", str);
     fprintf(fp, "\n\n\t\t\t\t==>\n\t\t\t\tName: %s\n\t\t\t\tE-mail: %s\n\t\t\t\tProduct Request: %s", name, email, str);
     fclose(fp);
-    system("cls");
-    printf(ANSI_COLOR_RED "\n\n\n\n\t\t\t\t\t  =========================\n");
-    printf(ANSI_COLOR_RED  "\t\t\t\t\t  |~ We got your request ~|\n");
-    printf(ANSI_COLOR_RED "\t\t\t\t\t  =========================\n" ANSI_COLOR_RESET);
-    printf(ANSI_COLOR_GREEN"\n\n\t\t\t\t\t  Press any key to go back" ANSI_COLOR_RESET);
-    getch();
+    MessageBox(0, "  We have got your request\n  Thank You", "Product Request", MB_ICONINFORMATION | MB_OK);
     sign_option();
 }
 
@@ -748,15 +709,23 @@ admin_login()
 
     if(strcmp(uname,"admin") == 0 && strcmp(pword,"admin") == 0)
     {
-        login_successful();
+        MessageBox(0, "  Log In Successful", "Admin", MB_ICONINFORMATION | MB_OK);
         admin_panel();
     }
     else
     {
-        login_error();
-        admin_login();
+        int msgboxID = MessageBox(NULL,"  Wrong Credentials\n  Do you want to try again?", "Admin", MB_ICONWARNING | MB_RETRYCANCEL);
+        switch (msgboxID)
+        {
+        case IDRETRY:
+            admin_login();
+            break;
+
+        case IDCANCEL:
+            menu();
+            break;
+        }
     }
-    main();
 }
 
 
@@ -2660,11 +2629,10 @@ bkash()
     }
 
     file();
-
     printf(ANSI_COLOR_MAGENTA "\n\n\t\t\t\t\tYou have paid your amount with Bkash.\n" ANSI_COLOR_RESET);
     Sleep(100);
-
-    thanks();
+    MessageBox(0, "  Payment Done Successfully\n  Thank you\n  Stay with us", "Payment", MB_ICONINFORMATION | MB_OK);
+    shop();
 }
 
 rocket()
@@ -2709,8 +2677,8 @@ rocket()
     file();
 
     printf(ANSI_COLOR_MAGENTA "\n\n\t\t\t\t\tYou have paid your amount with Rocket.\n" ANSI_COLOR_RESET);
-
-    thanks();
+    MessageBox(0, "  Payment Done Successfully\n  Thank you\n  Stay with us", "Payment", MB_ICONINFORMATION | MB_OK);
+    shop();
 }
 nagad()
 {
@@ -2754,8 +2722,8 @@ nagad()
     file();
 
     printf(ANSI_COLOR_MAGENTA "\n\n\t\t\t\t\tYou have paid your amount with Nagad.\n" ANSI_COLOR_RESET);
-
-    thanks();
+    MessageBox(0, "  Payment Done Successfully\n  Thank you\n  Stay with us", "Payment", MB_ICONINFORMATION | MB_OK);
+    shop();
 }
 card()
 {
@@ -2805,8 +2773,8 @@ card()
     file();
 
     printf(ANSI_COLOR_MAGENTA "\n\n\t\t\t\t\tYou have paid your amount with Card.\n" ANSI_COLOR_RESET);
-
-    thanks();
+    MessageBox(0, "  Payment Done Successfully\n  Thank you\n  Stay with us", "Payment", MB_ICONINFORMATION | MB_OK);
+    shop();
 }
 cod()
 {
@@ -2853,8 +2821,8 @@ cod()
     file();
 
     printf(ANSI_COLOR_MAGENTA "\n\n\t\t\t\tYou choose cash on delivery. Your product will be delivered soon.\n" ANSI_COLOR_RESET);
-
-    thanks();
+    MessageBox(0, "  Product Placed To Your Address Successfully\n  Thank you\n  Stay with us", "Cash On Delivery", MB_ICONINFORMATION | MB_OK);
+    shop();
 }
 
 /////////////////////////////////////////////// Shop //////////////////////////////////////////////////////
