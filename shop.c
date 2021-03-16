@@ -2501,17 +2501,24 @@ void invoice(char a[], int b, int z, int v)
 
 file()
 {
-    system("cls");
-    FILE * fp;
-    char * line = NULL;
-    size_t len = 0;
-    ssize_t read;
-    fp = fopen("invoice.txt", "r");
-    while ((read = getline(&line, &len, fp)) != -1)
+    FILE * fPtr;
+    char ch;
+    fPtr = fopen("invoice.txt", "r");
+    if(fPtr == NULL)
     {
-        printf("\n%s", line);
+        printf("Unable to open file.\n");
+        printf("Please check whether file exists and you have read privilege.\n");
+        exit(EXIT_FAILURE);
     }
-    fclose(fp);
+
+    do
+    {
+        ch = fgetc(fPtr);
+        putchar(ch);
+    }
+    while(ch != EOF);
+
+    fclose(fPtr);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
