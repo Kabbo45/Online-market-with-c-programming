@@ -17,7 +17,7 @@ void gotoxy(short x, short y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
 }
 
-////////////////////////////////////////////////// Structure ///////////////////////////////////////////////////////////
+////////////////////////////////////////////////// Structures ///////////////////////////////////////////////////////////
 
 struct shop
 {
@@ -1799,7 +1799,6 @@ del_male()
     fclose(tfile);
     remove("male.dat");
     rename("TempFile.dat","male.dat");
-
     printf("\n\n\n\t\t\t\tPress any key to go to admin panel!");
     while((st.c = getch()) =='\r');
     deleteproduct();
